@@ -31,3 +31,4 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 AsistenteUCAB/AsistenteUCAB.csproj
+AsistenteUCAB/App_Data/LogErrors/

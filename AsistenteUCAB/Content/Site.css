@@ -10,7 +10,7 @@ BODY
 	font-family: Verdana, Helvetica, Sans-Serif;
 	margin: 0;
 	padding: 0;
-	color: #696969;
+	color: #393939;
 }
 A:link
 {
@@ -404,7 +404,7 @@ all menu links*/
 /*All menu links on hover or focus*/
 #nav A:hover, #nav A:focus, #subMenusContainer A:hover, #subMenusContainer A:focus, #nav A.mainMenuParentBtnFocused, #subMenusContainer A.subMenuParentBtnFocused
 {
-	background-color: #F6C739;
+	background-color: #6565FF;
 	color: #FFF;
 }
 /*sub menu links on hover or focus6565FF*/
@@ -772,8 +772,8 @@ Component containers
 }
 .ui-widget-header
 {
-	border: 1px solid #E78F08;
-	background: #F6A828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x 50% 50%;
+	border: 1px solid #3252A1;
+	background: #5877C5 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x 50% 50%;
 	color: #FFFFFF;
 	font-weight: bold;
 }
@@ -797,26 +797,26 @@ Component containers
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus
 {
-	border: 1px solid #FBCB09;
-	background: #FDF5CE url(images/ui-bg_glass_100_fdf5ce_1x400.png) repeat-x 50% 50%;
+	border: 1px solid #7373FF;
+	background: #DADAF6 url(images/ui-bg_glass_100_fdf5ce_1x400.png) repeat-x 50% 50%;
 	font-weight: bold;
-	color: #C77405;
+	color: #3252A1;
 }
 .ui-state-hover A, .ui-state-hover A:hover
 {
-	color: #C77405;
+	color: #3252A1;
 	text-decoration: none;
 }
 .ui-state-active, .ui-widget-content .ui-state-active
 {
-	border: 1px solid #FBD850;
+	border: 1px solid #7373FF;
 	background: #FFFFFF url(images/ui-bg_glass_65_ffffff_1x400.png) repeat-x 50% 50%;
 	font-weight: bold;
-	color: #EB8F00;
+	color: #505ABC;
 }
 .ui-state-active A, .ui-state-active A:link, .ui-state-active A:visited
 {
-	color: #EB8F00;
+	color: #505ABC;
 	text-decoration: none;
 }
 .ui-widget :active
@@ -828,7 +828,7 @@ Component containers
 .ui-state-highlight, .ui-widget-content .ui-state-highlight
 {
 	border: 1px solid #FED22F;
-	background: #FFE45C url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% top;
+	background: #7373FF url(images/ui-bg_highlight-soft_75_ffe45c_1x100.png) repeat-x 50% top;
 	color: #363636;
 }
 .ui-state-highlight A, .ui-widget-content .ui-state-highlight A
