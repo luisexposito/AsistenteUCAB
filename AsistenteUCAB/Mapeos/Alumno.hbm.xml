@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Alumno" lazy="true" table="`ALUMNO`" schema="`dbo`">
+		<id name="Expediente" access="property" column="`expediente`">
+			<generator class="assigned" />
+		</id>
+    <property name="Nombre" column="`nombre`" length="20" />
+		<property name="Apellido" column="`apellido`" length="20" />
+		<property name="Cedula" column="`cedula`" length="10" />
+    <property name="CorreoUcab" column="`correoUcab`" length="50" />
+		<property name="CorreoAlternativo" column="`correoAlternativo`" length="50" />		
+	</class>
+</hibernate-mapping>

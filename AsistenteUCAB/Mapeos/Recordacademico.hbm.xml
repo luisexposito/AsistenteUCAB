@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Recordacademico" lazy="true" table="`RECORDACADEMICO`" schema="`dbo`">
+		<id name="IdRecord" access="property" column="`idRecord`">
+			<generator class="native" />
+		</id>
+		<property name="Expediente" column="`expediente`" />
+		<property name="IdMateria" column="`idMateria`" />
+		<property name="Nota" column="`nota`" />
+		<property name="PeriodoAcademico" column="`periodoAcademico`" length="10" />
+		<property name="Reparacion" column="`reparacion`" length="1" />
+	</class>
+</hibernate-mapping>

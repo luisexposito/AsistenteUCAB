@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nhv-mapping assembly="AsistenteUCAB" namespace="AsistenteUCAB.Modelos" xmlns="urn:nhibernate-validator-1.0">
+	<class name="Alumno">
+		<property name="Apellido">
+			<not-null />
+		</property>
+		<property name="Cedula">
+			<not-null />
+		</property>
+		<property name="CorreoUcab">
+			<not-null />
+		</property>
+		<property name="Expediente">
+			<not-null />
+			<digits integerDigits="10" />
+		</property>
+		<property name="Nombre">
+			<not-null />
+		</property>
+	</class>
+</nhv-mapping>

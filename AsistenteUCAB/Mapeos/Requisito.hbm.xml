@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Requisito" lazy="true" table="`REQUISITO`" schema="`dbo`">
+    <composite-id>
+      <key-property name="IdMateriaPadre" column="`idMateriaPadre`" />
+      <key-property name="IdMateriaHijo" column="`idMateriaHijo`" />
+    </composite-id>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Materium" lazy="true" table="`MATERIA`" schema="`dbo`">
+		<id name="IdMateria" access="property" column="`idMateria`">
+			<generator class="native" />
+		</id>
+		<property name="Creditos" column="`creditos`" />
+		<property name="Descripcion" column="`descripcion`" length="100" />
+		<property name="HorasLab" column="`horasLab`" />
+		<property name="HorasPractica" column="`horasPractica`" />
+		<property name="HorasTeoria" column="`horasTeoria`" />
+		<property name="Nombre" column="`nombre`" length="50" />
+		<property name="Periodo" column="`periodo`" />
+	</class>
+</hibernate-mapping>

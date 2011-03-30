@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nhv-mapping assembly="AsistenteUCAB" namespace="AsistenteUCAB.Modelos" xmlns="urn:nhibernate-validator-1.0">
+	<class name="Recordacademico">
+		<property name="Expediente">
+			<not-null />
+			<digits integerDigits="10" />
+		</property>
+		<property name="IdMateria">
+			<not-null />
+			<digits integerDigits="10" />
+		</property>
+		<property name="IdRecord">
+			<not-null />
+			<digits integerDigits="10" />
+		</property>
+		<property name="Nota">
+			<not-null />
+			<digits integerDigits="10" />
+		</property>
+		<property name="PeriodoAcademico">
+			<not-null />
+		</property>
+		<property name="Reparacion">
+			<not-null />
+		</property>
+	</class>
+</nhv-mapping>
