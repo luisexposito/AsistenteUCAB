@@ -11,7 +11,7 @@ namespace AsistenteUCAB
         {
             string result = string.Empty;
 
-            string currentAction = helper.ViewContext.RouteData.Values["action"].ToString();
+            string currentAction = helper.ViewContext.RouteData.Values["controller"].ToString();
             if (string.Equals(action, currentAction, StringComparison.InvariantCultureIgnoreCase))
             {
                 result = "ui-state-active ui-tabs-selected";
