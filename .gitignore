@@ -2,7 +2,6 @@
 Thumbs.db
 *.obj
 *.exe
-*.sln
 *.pdb
 *.user
 *.aps
