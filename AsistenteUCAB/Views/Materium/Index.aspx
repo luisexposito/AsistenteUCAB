@@ -1,55 +1,72 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<AsistenteUCAB.Modelos.Materium>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<AsistenteUCAB.Modelos.Materium>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Index
+	Gestion de Materias
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Materias</h2>
+    <h2>Gestion de Materias</h2>
+    <div align="right">
+        <table>
+            <td><a title="Agregar Materia" href="<%=Url.Action("Create","Materium")%>">
+                <img src="<%=Url.Content("~/Content/agregar.png")%>" height="25px" width="25px" /></a></td>
+            <td><%: Html.ActionLink("Agregar nueva Materias", "Create")%></td>
+        </table>
+    </div>
 
-    <table>
+    <% using (Html.BeginForm())
+    {%>
+        <fieldset>
+        <legend>Buscar Materia: </legend>
+            
+            <div class="editor-label">
+                <label for="Nombre">Nombre:</label>
+            </div>
+            <div class="editor-field">
+            <%= Html.TextBox("materia",null, new { @class = "text-box" })%>
+            </div>
+            <div class="editor-label">
+                <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="Buscar"/>
+            </div>
+         </fieldset>
+     <%
+    }%>
+    
+    <table align=center>
         <tr>
-            <th></th>
-            <th>
-                Creditos
-            </th>
-            <th>
-                Descripcion
-            </th>
-            <th>
-                HorasLab
-            </th>
-            <th>
-                HorasPractica
-            </th>
-            <th>
-                HorasTeoria
-            </th>
-            <th>
-                IdMateria
-            </th>
             <th>
                 Nombre
             </th>
             <th>
                 Periodo
             </th>
+            <th>
+                Creditos
+            </th>
+            <th>
+                Horas Laboratorio
+            </th>
+            <th>
+                Horas Practica
+            </th>
+            <th>
+                Horas Teoria
+            </th>
+            
         </tr>
 
     <% foreach (var item in Model) { %>
     
         <tr>
             <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.IdMateria }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id = item.IdMateria })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })%>
+                <%: item.Nombre %>
+            </td>
+            <td>
+                <%: item.Periodo %>
             </td>
             <td>
                 <%: item.Creditos %>
-            </td>
-            <td>
-                <%: item.Descripcion %>
             </td>
             <td>
                 <%: item.HorasLab %>
@@ -61,13 +78,12 @@
                 <%: item.HorasTeoria %>
             </td>
             <td>
-                <%: item.IdMateria %>
+                <a title="Editar" href="<%=Url.Action("Edit", "Materium", new {id = item.IdMateria}, null)%>">
+                  <img src="<%=Url.Content("~/Content/editar.png")%>" height="25px" width="25px" /></a>
             </td>
             <td>
-                <%: item.Nombre %>
-            </td>
-            <td>
-                <%: item.Periodo %>
+                <a title="Eliminar Materia" href="<%=Url.Action("Delete", "Materium", new {id = item.IdMateria}, null)%>">
+                    <img src="<%=Url.Content("~/Content/eliminar.png")%>" height="25px" width="25px" /></a>
             </td>
         </tr>
     
@@ -75,9 +91,11 @@
 
     </table>
 
-    <p>
-        <%: Html.ActionLink("Create New", "Create") %>
-    </p>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("input#materia").autocomplete('<%= Url.Action("Find", "Materium") %>');
+    }); 
+    </script>
 
 </asp:Content>
 

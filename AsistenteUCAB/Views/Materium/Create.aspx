@@ -1,18 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Materium>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Materium>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Create
+	Nueva Materia
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>nueva Materia</h2>
+    <h2>Gestion de Materias</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
 
         <fieldset>
-            <legend>Fields</legend>
+            <legend>Crear nueva Materia:</legend>
             
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Creditos) %>
@@ -31,7 +31,7 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.HorasLab) %>
+                <%: Html.LabelFor(model => model.HorasLab)%>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.HorasLab) %>
@@ -53,15 +53,7 @@
                 <%: Html.TextBoxFor(model => model.HorasTeoria) %>
                 <%: Html.ValidationMessageFor(model => model.HorasTeoria) %>
             </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdMateria) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdMateria) %>
-                <%: Html.ValidationMessageFor(model => model.IdMateria) %>
-            </div>
-            
+           
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Nombre) %>
             </div>
@@ -78,16 +70,19 @@
                 <%: Html.ValidationMessageFor(model => model.Periodo) %>
             </div>
             
-            <p>
-                <input type="submit" value="Create" />
-            </p>
+            <div class="editor-label">
+                <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
+            </div>
         </fieldset>
-
     <% } %>
 
-    <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </div>
+    <br />
+        <table>
+            <td><a title="Materias" href="<%=Url.Action("Index")%>">
+                <img src="<%=Url.Content("~/Content/atras.png")%>" height="25px" width="25px" /></a></td>
+            <td><%: Html.ActionLink("Listado de Materias", "Index")%></td>
+        </table>
+    
 
 </asp:Content>
 

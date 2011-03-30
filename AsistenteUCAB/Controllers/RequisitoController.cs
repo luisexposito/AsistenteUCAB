@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -34,6 +35,11 @@ namespace AsistenteUCAB.Controllers
 
         public ActionResult Create()
         {
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
+            ViewData["MateriaPadre.Nombre"] = new SelectList(nombresMaterias);
+            ViewData["MateriaHijo.Nombre"] = new SelectList(nombresMaterias);
             return View();
         }
 
@@ -43,6 +49,16 @@ namespace AsistenteUCAB.Controllers
         [HttpPost]
         public ActionResult Create(Requisito Requisito)
         {
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            foreach (var materia in listaMaterias)
+            {
+                if (materia.Nombre == Requisito.MateriaHijo.Nombre)
+                    Requisito.IdMateriaHijo = materia.IdMateria;
+                if (materia.Nombre == Requisito.MateriaPadre.Nombre)
+                    Requisito.IdMateriaPadre = materia.IdMateria;
+            }
+
             if(ModelState.IsValid)
             {
                 IRepositorio<Requisito> myRepoRequisito = new RequisitoRepositorio();
@@ -58,19 +74,25 @@ namespace AsistenteUCAB.Controllers
         public ActionResult Edit(int idPadre, int idHijo)
         {
             IRepositorio<Requisito> myRepoRequisito = new RequisitoRepositorio();
-            return View(myRepoRequisito.GetById(idPadre, idHijo));
+            IList<Requisito> todosRequisitos = myRepoRequisito.GetAll();
+            Requisito requisitoBuscado = null;
+            foreach (var requisito in todosRequisitos)
+            {
+                if (requisito.IdMateriaPadre == idPadre && requisito.IdMateriaHijo == idHijo)
+                    requisitoBuscado = requisito;
+            }
+            return View(requisitoBuscado);
         }
 
         //
         // POST: /Requisito/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Requisito Requisito, int id, FormCollection collection)
+        public ActionResult Edit(Requisito Requisito)
         {
             if(ModelState.IsValid)
             {
                 IRepositorio<Requisito> myRepoRequisito = new RequisitoRepositorio();
-                Requisito.IdMateriaPadre = id;
                 myRepoRequisito.Update(Requisito);
                 return RedirectToAction("Index");
             }

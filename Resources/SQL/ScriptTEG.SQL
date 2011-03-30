@@ -30,10 +30,10 @@ GO
 CREATE TABLE [MATERIA]
 (
  [idMateria] Int IDENTITY(1,1),
- [nombre] Char(50) NOT NULL,
+ [nombre] VarChar(50) NOT NULL,
  [creditos] Int NOT NULL,
  [periodo] Int NOT NULL,
- [descripcion] Char(100) NULL,
+ [descripcion] VarChar(100) NULL,
  [horasTeoria] Int NULL,
  [horasPractica] Int NULL,
  [horasLab] Int NULL
@@ -50,11 +50,11 @@ go
 CREATE TABLE [ALUMNO]
 (
  [expediente] Int NOT NULL,
- [nombre] Char(20) NOT NULL,
- [apellido] Char(20) NOT NULL,
- [cedula] Char(10) NOT NULL,
- [correoUcab] Char(50) NOT NULL,
- [correoAlternativo] Char(50) NULL
+ [nombre] VarChar(20) NOT NULL,
+ [apellido] VarChar(20) NOT NULL,
+ [cedula] VarChar(10) NOT NULL,
+ [correoUcab] VarChar(50) NOT NULL,
+ [correoAlternativo] VarChar(50) NULL
 )
 go
 
@@ -71,8 +71,8 @@ CREATE TABLE [RECORDACADEMICO]
  [idMateria] Int NOT NULL,
  [expediente] Int NOT NULL,
  [nota] Int NOT NULL,
- [periodoAcademico] Char(10) NOT NULL,
- [reparacion] Char(1) NOT NULL
+ [periodoAcademico] VarChar(10) NOT NULL,
+ [reparacion] VarChar(1) NOT NULL
 )
 go
 
@@ -90,9 +90,9 @@ CREATE TABLE [ACTIVIDAD]
  [expediente] Int NOT NULL,
  [horaInicio] DateTime NOT NULL,
  [horaFin] DateTime NOT NULL,
- [nombre] Char(50) NULL,
- [seccion] Char(10) NULL,
- [periodo] Char(10) NULL
+ [nombre] VarChar(50) NULL,
+ [seccion] VarChar(10) NULL,
+ [periodo] VarChar(10) NULL
 )
 go
 

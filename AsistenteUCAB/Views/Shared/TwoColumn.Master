@@ -1,0 +1,70 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="HeaderContent" runat="server">
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="content ui-helper-clearfix">
+        <div class="content-main">
+            <div class="navarea">
+                <div class="menu ui-tabs ui-widget ui-corner-all ui-widget-content">
+                    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Home") %>">
+                            <%: Html.ActionLink("Home", "Index","Home") %>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Materium") %>">
+                            <%: Html.ActionLink("Materia", "Index", "Materium")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Alumno") %>">
+                            <%: Html.ActionLink("Alumno", "Index", "Alumno")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Actividad") %>">
+                            <%: Html.ActionLink("Actividad", "Index", "Actividad")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Requisito") %>">
+                            <%: Html.ActionLink("Requisito", "Index", "Requisito")%>
+                        </li>
+                        <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Recordacademico") %>">
+                            <%: Html.ActionLink("Record Academico", "Index", "Recordacademico")%>
+                        </li>
+                        <% if (Request.IsAuthenticated)
+                           {
+                        %>
+                            <li class="ui-state-default ui-corner-top <%:Html.IsActiveTab("Comentario") %>">
+                                <%: Html.ActionLink("Comparte", "Create", "Comentario")%>
+                            </li>
+                        <%
+                           }%>
+                    </ul>
+                    <div style="height:500px">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-side">
+
+            <div class="sidebox ui-widget ui-widget-content ui-corner-all">
+                <div class="sidebox-header ui-widget-header ui-corner-top ui-state-default"><span>Bond77</span></div>
+                <div align="center">
+                <p>Es esa nave que nace de una galaxia, pasa por los cosmos personales y atraviesa a Caracas, epicentro geográfico de nuestras vidas</p>
+                </div>
+            </div>
+            <div class="sidebox ui-widget ui-widget-content ui-corner-all">
+                <div class="sidebox-header ui-widget-header ui-corner-top ui-state-default"><span>Bond77</span></div>
+                <div align="center">
+                <p>Es esa nave que nace de una galaxia, pasa por los cosmos personales y atraviesa a Caracas, epicentro geográfico de nuestras vidas</p>
+                </div>
+
+            </div>
+
+            <asp:ContentPlaceHolder ID="SideContent" runat="server">
+
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>

@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------
-El color base de esta plantilla es #5c87b2. Si desea usar
+El color base de esta plantilla es White. Si desea usar
 otro color, empiece por reemplazar todas las instancias de
-#5c87b2 con el nuevo color.
+White con el nuevo color.
 ----------------------------------------------------------*/
 body
 {
-    background-color: #5c87b2;
+    background-color: White;
     font-size: .75em;
     font-family: Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -43,30 +43,29 @@ p, ul
 h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1
 {
     font-size: 2em;
-    padding-bottom: 0;
-    margin-bottom: 0;
 }
 h2
 {
-    padding: 0 0 10px 0;
+    padding: 15px 15px 10px 15px;
 }
 h3
 {
+    padding: 5px 5px 5px 15px;
     font-size: 1.2em;
 }
 h4
 {
+    padding: 5px 5px 5px 25px;
     font-size: 1.1em;
 }
 h5, h6
 {
+    padding: 0px 0px 0px 45px;
     font-size: 1em;
 }
 
@@ -84,7 +83,7 @@ primer elemento secundario de las columnas de tabla izquierda y derecha */
 ancho de página. O bien puede especificar un ancho de píxel exacto. */
 .page
 {
-    width: 90%;
+    width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -92,9 +91,12 @@ ancho de página. O bien puede especificar un ancho de píxel exacto. */
 #header
 {
     position: relative;
-    margin-bottom: 0px;
     color: #000;
     padding: 0;
+    top: 0px;
+    left: 0px;
+    width: 900px;
+    height: 91px;
 }
 
 #header h1
@@ -120,65 +122,11 @@ ancho de página. O bien puede especificar un ancho de píxel exacto. */
 #footer
 {
     color: #999;
-    padding: 10px 0;
+    padding: 30px 0;
     text-align: center;
     line-height: normal;
     margin: 0;
     font-size: .9em;
-}
-
-/* MENÚ TABULADOR   
-----------------------------------------------------------*/
-ul#menu
-{
-    border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
-    position: relative;
-    margin: 0;
-    text-align: right;
-}
-
-ul#menu li
-{
-    display: inline;
-    list-style: none;
-}
-
-ul#menu li#greeting
-{
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    color: #fff;
-}
-
-ul#menu li a
-{
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
-}
-
-ul#menu li a:hover
-{
-    background-color: #fff;
-    text-decoration: none;
-}
-
-ul#menu li a:active
-{
-    background-color: #a6e2a6;
-    text-decoration: none;
-}
-
-ul#menu li.selected a
-{
-    background-color: #fff;
-    color: #000;
 }
 
 /* ELEMENTOS DE DISEÑO DE FORMULARIOS  
@@ -209,33 +157,16 @@ input[type="text"]
     border: 1px solid #CCC;
 }
 
+textarea
+{
+    width: 400px;
+    height: 100px;
+}
+
 input[type="password"] 
 {
     width: 200px;
     border: 1px solid #CCC;
-}
-
-/* TABLA
-----------------------------------------------------------*/
-
-table 
-{
-  border: solid 1px #e8eef4;
-  border-collapse: collapse;
-}
-
-table td 
-{
-  padding: 5px;   
-  border: solid 1px #e8eef4;
-}
-
-table th
-{
-  padding: 6px 5px;
-  text-align: left;
-  background-color: #e8eef4; 
-  border: solid 1px #e8eef4;   
 }
 
 /* VARIOS  
@@ -252,40 +183,35 @@ table th
 
 #menucontainer
 {
-    margin-top:40px;
+    margin-top:0px;
 }
 
 div#title
-{
-    display:block;
-    float:left;
-    text-align:left;
+{   
+    float: left;
+    margin-left: 50px;
 }
 
 #logindisplay
 {
+    margin-top:10px;
+    float: right;
     font-size:1.1em;
-    display:block;
     text-align:right;
-    margin:10px;
-    color:White;
 }
 
 #logindisplay a:link
 {
-    color: white;
     text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: white;
     text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-    color: white;
     text-decoration: none;
 }
 
@@ -341,4 +267,43 @@ div#title
 .tri-state
 {
     width: 6em;
+}
+/*Estilo para el Autocomplete*/
+
+.acInput {
+        width: 200px;
+}
+.acResults {
+        padding: 0px;
+        border: 1px solid WindowFrame;
+        background-color: Window;
+        overflow: hidden;
+}
+
+.acResults ul {
+        width: 100%;
+        list-style-position: outside;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+}
+
+.acResults li {
+        margin: 0px;
+        padding: 2px 5px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        font: menu;
+        font-size: 12px;
+        overflow: hidden;
+}
+
+.acLoading {
+        background : url('indicator.gif') right center no-repeat;
+}
+
+.acSelect {
+        background-color: Highlight;
+        color: HighlightText;
 }

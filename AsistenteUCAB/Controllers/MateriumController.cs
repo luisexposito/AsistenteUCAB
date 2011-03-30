@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
 using AsistenteUCAB.Modelos;
 using AsistenteUCAB.Repositorios;
 
@@ -20,6 +21,24 @@ namespace AsistenteUCAB.Controllers
             return View(listaMateriums);
         }
 
+        //
+        // GET: /Materium/
+
+        [HttpPost]
+        public ActionResult Index(HtmlForm form)
+        {
+            string nombre = Request["materia"];
+            IRepositorio<Materium> myRepoMaterium = new MateriumRepositorio();
+            IList<Materium> todasMateriums = myRepoMaterium.GetAll();
+            IList<Materium> listaMateriums = new List<Materium>();
+            foreach (var materium in todasMateriums)
+            {
+                if (materium.Nombre == nombre)
+                    listaMateriums.Add(materium);
+            }
+            return View(listaMateriums);
+        }
+        
         //
         // GET: /Materium/Details/5
 
@@ -98,6 +117,30 @@ namespace AsistenteUCAB.Controllers
         public ActionResult Delete(int id, Materium Materium)
         {
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Find(string q)
+        {
+            IRepositorio<Materium> repoS = new MateriumRepositorio();
+            IList<Materium> materiums = repoS.GetAll();
+            IList<Materium> posiblesMaterias = new List<Materium>();
+
+            foreach (var item in materiums)
+            {
+                if (item.Nombre.Contains(q.ToUpper()) || item.Nombre.Contains(q.ToLower()))
+                {
+                    posiblesMaterias.Add(item);
+                }
+            }
+            string[] emp = new string[posiblesMaterias.Count];
+            int i = 0;
+            foreach (var materia in posiblesMaterias)
+            {
+                emp[i] = materia.Nombre;
+                i++;
+            }
+
+            return Content(string.Join("\n", emp)); ;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Requisito>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Requisito>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Create
@@ -15,21 +15,21 @@
             <legend>Fields</legend>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdMateriaHijo) %>
+                <%: Html.Label("MateriaPadre.Nombre")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdMateriaHijo) %>
-                <%: Html.ValidationMessageFor(model => model.IdMateriaHijo) %>
+                <%: Html.DropDownList("MateriaPadre.Nombre")%>
+                <%: Html.ValidationMessage("MateriaPadre.Nombre", "*")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdMateriaPadre) %>
+                <%: Html.Label("MateriaHijo.Nombre")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdMateriaPadre) %>
-                <%: Html.ValidationMessageFor(model => model.IdMateriaPadre) %>
+                <%: Html.DropDownList("MateriaHijo.Nombre")%>
+                <%: Html.ValidationMessage("MateriaHijo.Nombre", "*")%>
             </div>
-            
+
             <p>
                 <input type="submit" value="Create" />
             </p>
