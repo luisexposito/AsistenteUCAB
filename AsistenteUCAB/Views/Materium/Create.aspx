@@ -13,6 +13,14 @@
 
         <fieldset>
             <legend>Crear nueva Materia:</legend>
+
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Nombre) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.Nombre) %>
+                <%: Html.ValidationMessageFor(model => model.Nombre) %>
+            </div>
             
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Creditos) %>
@@ -23,10 +31,18 @@
             </div>
             
             <div class="editor-label">
+                <%: Html.LabelFor(model => model.Periodo) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.Periodo) %>
+                <%: Html.ValidationMessageFor(model => model.Periodo) %>
+            </div>
+
+            <div class="editor-label">
                 <%: Html.LabelFor(model => model.Descripcion) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Descripcion) %>
+                <%: Html.TextAreaFor(model => model.Descripcion) %>
                 <%: Html.ValidationMessageFor(model => model.Descripcion) %>
             </div>
             
@@ -55,28 +71,11 @@
             </div>
            
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Nombre) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nombre) %>
-                <%: Html.ValidationMessageFor(model => model.Nombre) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Periodo) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Periodo) %>
-                <%: Html.ValidationMessageFor(model => model.Periodo) %>
-            </div>
-            
-            <div class="editor-label">
                 <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
             </div>
         </fieldset>
     <% } %>
 
-    <br />
         <table>
             <td><a title="Materias" href="<%=Url.Action("Index")%>">
                 <img src="<%=Url.Content("~/Content/atras.png")%>" height="25px" width="25px" /></a></td>

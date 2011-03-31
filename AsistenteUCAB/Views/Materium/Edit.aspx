@@ -1,18 +1,26 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Materium>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Edit
+	Editar Materia
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Editar Materia</h2>
+    <h2>Gestion de Materias</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
         
         <fieldset>
-            <legend>Fields</legend>
+            <legend>Editar Materia:</legend>
+            
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.Nombre) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.Nombre) %>
+                <%: Html.ValidationMessageFor(model => model.Nombre) %>
+            </div>
             
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Creditos) %>
@@ -23,10 +31,18 @@
             </div>
             
             <div class="editor-label">
+                <%: Html.LabelFor(model => model.Periodo) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.Periodo) %>
+                <%: Html.ValidationMessageFor(model => model.Periodo) %>
+            </div>
+
+            <div class="editor-label">
                 <%: Html.LabelFor(model => model.Descripcion) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Descripcion) %>
+                <%: Html.TextAreaFor(model => model.Descripcion) %>
                 <%: Html.ValidationMessageFor(model => model.Descripcion) %>
             </div>
             
@@ -54,42 +70,20 @@
                 <%: Html.ValidationMessageFor(model => model.HorasTeoria) %>
             </div>
             
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdMateria) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.DisplayFor(model => model.IdMateria) %>
-                <%: Html.ValidationMessageFor(model => model.IdMateria) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Nombre) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nombre) %>
-                <%: Html.ValidationMessageFor(model => model.Nombre) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Periodo) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Periodo) %>
-                <%: Html.ValidationMessageFor(model => model.Periodo) %>
-            </div>
-            
-            <input type="hidden" name="IdMeteria" value="<%: Model.IdMateria %>" />
+            <input type="hidden" name="IdMateria" value="<%: Model.IdMateria %>" />
 
-            <p>
-                <input type="submit" value="Save" />
-            </p>
+            <div class="editor-label">
+                <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="Actualizar" />
+            </div>
         </fieldset>
 
     <% } %>
 
-    <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </div>
+    <table>
+        <td><a title="Materias" href="<%=Url.Action("Index")%>">
+            <img src="<%=Url.Content("~/Content/atras.png")%>" height="25px" width="25px" /></a></td>
+        <td><%: Html.ActionLink("Listado de Materias", "Index")%></td>
+    </table>
 
 </asp:Content>
 

@@ -72,7 +72,7 @@ CREATE TABLE [RECORDACADEMICO]
  [expediente] Int NOT NULL,
  [nota] Int NOT NULL,
  [periodoAcademico] VarChar(10) NOT NULL,
- [reparacion] VarChar(1) NOT NULL
+ [reparacion] VarChar(2) NOT NULL
 )
 go
 

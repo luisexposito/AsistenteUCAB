@@ -9,14 +9,15 @@
     <h2>Gestion de Materias</h2>
     <div align="right">
         <table>
-            <td><a title="Agregar Materia" href="<%=Url.Action("Create","Materium")%>">
+            <td><a title="Agregar Materia" href="<%=Url.Action("Create", "Materium")%>">
                 <img src="<%=Url.Content("~/Content/agregar.png")%>" height="25px" width="25px" /></a></td>
-            <td><%: Html.ActionLink("Agregar nueva Materias", "Create")%></td>
+            <td><%:Html.ActionLink("Agregar Materia", "Create")%></td>
         </table>
     </div>
 
-    <% using (Html.BeginForm())
-    {%>
+    <%
+        using (Html.BeginForm())
+        {%>
         <fieldset>
         <legend>Buscar Materia: </legend>
             
@@ -24,16 +25,17 @@
                 <label for="Nombre">Nombre:</label>
             </div>
             <div class="editor-field">
-            <%= Html.TextBox("materia",null, new { @class = "text-box" })%>
+            <%=Html.TextBox("materia", null, new {@class = "text-box"})%>
             </div>
             <div class="editor-label">
                 <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="Buscar"/>
             </div>
          </fieldset>
      <%
-    }%>
-    
-    <table align=center>
+        }
+        if (Model.Count() != 0)
+        {%>
+    <table align="center">
         <tr>
             <th>
                 Nombre
@@ -56,26 +58,28 @@
             
         </tr>
 
-    <% foreach (var item in Model) { %>
+    <%
+            foreach (var item in Model)
+            {%>
     
         <tr>
             <td>
-                <%: item.Nombre %>
+                <%:item.Nombre%>
             </td>
             <td>
-                <%: item.Periodo %>
+                <%:item.Periodo%>
             </td>
             <td>
-                <%: item.Creditos %>
+                <%:item.Creditos%>
             </td>
             <td>
-                <%: item.HorasLab %>
+                <%:item.HorasLab%>
             </td>
             <td>
-                <%: item.HorasPractica %>
+                <%:item.HorasPractica%>
             </td>
             <td>
-                <%: item.HorasTeoria %>
+                <%:item.HorasTeoria%>
             </td>
             <td>
                 <a title="Editar" href="<%=Url.Action("Edit", "Materium", new {id = item.IdMateria}, null)%>">
@@ -87,10 +91,12 @@
             </td>
         </tr>
     
-    <% } %>
+    <%
+            }%>
 
     </table>
-
+    <%
+        }%>
     <script type="text/javascript">
     $(document).ready(function () {
         $("input#materia").autocomplete('<%= Url.Action("Find", "Materium") %>');

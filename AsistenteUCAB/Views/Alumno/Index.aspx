@@ -1,17 +1,42 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<AsistenteUCAB.Modelos.Alumno>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Index
+	Gestion de Alumnos
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Alumnos</h2>
+    <h2>Gestion de Alumnos</h2>
+    <div align="right">
+        <table>
+            <td><a title="Agregar Alumno" href="<%=Url.Action("Create","Alumno")%>">
+                <img src="<%=Url.Content("~/Content/agregar.png")%>" height="25px" width="25px" /></a></td>
+            <td><%: Html.ActionLink("Agregar Alumno", "Create")%></td>
+        </table>
+    </div>
 
-    <table>
+    <% using (Html.BeginForm())
+    {%>
+        <fieldset>
+        <legend>Buscar Alumno: </legend>
+            
+            <div class="editor-label">
+                <label for="Nombre">Nombre:</label>
+            </div>
+            <div class="editor-field">
+            <%= Html.TextBox("alumno",null, new { @class = "text-box" })%>
+            </div>
+            <div class="editor-label">
+                <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="Buscar"/>
+            </div>
+         </fieldset>
+     <%
+    }%>
+    <% if (Model.Count() != 0)
+      {%>
+    <table align="center">
         <tr>
-            <th></th>
-             <th>
+            <th>
                 Expediente
             </th>
             <th>
@@ -26,48 +51,51 @@
             <th>
                 CorreoUcab
             </th>
-            <th>
-                CorreoAlternativo
-            </th>
             
         </tr>
 
-    <% foreach (var item in Model) { %>
+    <%
+          foreach (var item in Model)
+          {%>
     
         <tr>
             <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.Expediente }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.Expediente })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })%>
+                <%:item.Expediente%>
             </td>
             <td>
-                <%: item.Expediente %>
+                <%:item.Nombre%>
             </td>
             <td>
-                <%: item.Nombre %>
+                <%:item.Apellido%>
             </td>
             <td>
-                <%: item.Apellido %>
+                <%:item.Cedula%>
             </td>
             <td>
-                <%: item.Cedula %>
+                <%:item.CorreoUcab%>
             </td>
             <td>
-                <%: item.CorreoUcab %>
+                <a title="Editar Alumno" href="<%=Url.Action("Edit", "Alumno", new {id = item.Expediente}, null)%>">
+                  <img src="<%=Url.Content("~/Content/editar.png")%>" height="25px" width="25px" /></a>
             </td>
             <td>
-                <%: item.CorreoAlternativo %>
+                <a title="Eliminar Alumno" href="<%=Url.Action("Delete", "Alumno", new {id = item.Expediente}, null)%>">
+                    <img src="<%=Url.Content("~/Content/eliminar.png")%>" height="25px" width="25px" /></a>
             </td>
             
         </tr>
     
-    <% } %>
+    <%
+          }%>
 
     </table>
-
-    <p>
-        <%: Html.ActionLink("Create New", "Create") %>
-    </p>
+    <%
+      }%>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input#alumno").autocomplete('<%= Url.Action("Find", "Alumno") %>');
+        }); 
+    </script>
 
 </asp:Content>
 

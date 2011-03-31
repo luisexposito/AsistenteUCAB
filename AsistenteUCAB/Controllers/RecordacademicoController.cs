@@ -16,7 +16,14 @@ namespace AsistenteUCAB.Controllers
         public ActionResult Index()
         {
             IRepositorio<Recordacademico> myRepoRecordacademico = new RecordacademicoRepositorio();
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
             IList<Recordacademico> listaRecordacademicos = myRepoRecordacademico.GetAll();
+            foreach (var recordacademico in listaRecordacademicos)
+            {
+                recordacademico.Materium = repositorioMateria.GetById(recordacademico.IdMateria);
+                recordacademico.Alumno = repositorioAlumno.GetById(recordacademico.Expediente);
+            }
             return View(listaRecordacademicos);
         }
 
@@ -34,6 +41,19 @@ namespace AsistenteUCAB.Controllers
 
         public ActionResult Create()
         {
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre + " cod.: " + listaMateria.IdMateria).ToList();
+            ViewData["Materium.Nombre"] = new SelectList(nombresMaterias);
+
+            IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
+            IList<Alumno> listaAlumnos = repositorioAlumno.GetAll();
+            IList<String> nombresAlumnos = listaAlumnos.Select(listaAlumno => listaAlumno.Nombre + " " + listaAlumno.Apellido + " - " + listaAlumno.Expediente).ToList();
+            ViewData["Alumno.Nombre"] = new SelectList(nombresAlumnos);
+
+            IEnumerable<string> items = new string[] { "S", "N" };
+            ViewData["Reparacion"] = new SelectList(items); ;
+
             return View();
         }
 
@@ -43,11 +63,27 @@ namespace AsistenteUCAB.Controllers
         [HttpPost]
         public ActionResult Create(Recordacademico Recordacademico)
         {
-            if(ModelState.IsValid)
+            int indice = Recordacademico.Alumno.Nombre.IndexOf('-') + 2;
+            if (indice != 1)
             {
-                IRepositorio<Recordacademico> myRepoRecordacademico = new RecordacademicoRepositorio();
-                myRepoRecordacademico.Save(Recordacademico);
-                return RedirectToAction("Index");
+                string exp = Recordacademico.Alumno.Nombre.Substring(indice).Trim();
+                int expediente = Convert.ToInt32(exp);
+                Recordacademico.Expediente = expediente;
+
+                indice = Recordacademico.Materium.Nombre.IndexOf(':') + 2;
+                if (indice != 1)
+                {
+                    string id = Recordacademico.Materium.Nombre.Substring(indice).Trim();
+                    int idMateria = Convert.ToInt32(id);
+                    Recordacademico.IdMateria = idMateria;
+
+                    if (ModelState.IsValid)
+                    {
+                        IRepositorio<Recordacademico> myRepoRecordacademico = new RecordacademicoRepositorio();
+                        myRepoRecordacademico.Save(Recordacademico);
+                        return RedirectToAction("Index");
+                    }
+                }
             }
             return View(Recordacademico);
         }

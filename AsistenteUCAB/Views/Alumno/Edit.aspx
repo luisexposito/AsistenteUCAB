@@ -1,18 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Alumno>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Edit
+	Editar Alumno
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Editar Alumno</h2>
+    <h2>Gestion de Alumnos</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
         
         <fieldset>
-            <legend>Fields</legend>
+            <legend>Editar Alumno:</legend>
             
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Expediente) %>
@@ -64,16 +64,18 @@
             
             <input type="hidden" name="Expediente" value="<%: Model.Expediente %>" />
 
-            <p>
-                <input type="submit" value="Save" />
-            </p>
+            <div class="editor-label">
+                <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="Actualizar" />
+            </div>
         </fieldset>
 
     <% } %>
 
-    <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </div>
+    <table>
+        <td><a title="Materias" href="<%=Url.Action("Index")%>">
+            <img src="<%=Url.Content("~/Content/atras.png")%>" height="25px" width="25px" /></a></td>
+        <td><%: Html.ActionLink("Listado de Alumnos", "Index")%></td>
+    </table>
 
 </asp:Content>
 

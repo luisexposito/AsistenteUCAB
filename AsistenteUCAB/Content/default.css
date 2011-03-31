@@ -124,6 +124,12 @@ input[type="text"]
     border: 1px solid #CCC; 
 }
 
+textarea
+{
+    width: 200px;
+    height: 100px;
+}
+
 input[type="password"] 
 {
     width: 200px;
