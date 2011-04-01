@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Actividades</h2>
+    <h2>Gestion de Actividades</h2>
 
      <div align="right">
         <table>
@@ -33,8 +33,9 @@
          </fieldset>
      <%
     }%>
-    
-    <table align=center>
+    <% if (Model.Count() != 0)
+       {%>
+    <table align="center">
         <tr>
             <th>
                 Expediente
@@ -62,32 +63,34 @@
             </th>
         </tr>
 
-    <% foreach (var item in Model) { %>
+    <%
+           foreach (var item in Model)
+           {%>
     
         <tr>
             <td>
-                <%: item.Expediente %>
+                <%:item.Expediente%>
             </td>
             <td>
-                <%: item.IdActividad %>
+                <%:item.IdActividad%>
             </td>
             <td>
-                <%: item.Nombre %>
+                <%:item.Nombre%>
             </td>
             <td>
-                <%: String.Format("{0:t}", item.HoraFin) %>
+                <%:String.Format("{0:t}", item.HoraFin)%>
             </td>
             <td>
-                <%: String.Format("{0:t}", item.HoraInicio) %>
+                <%:String.Format("{0:t}", item.HoraInicio)%>
             </td>
             <td>
-                <%: item.IdMateria %>
+                <%:item.IdMateria%>
             </td>
             <td>
-                <%: item.Seccion %>
+                <%:item.Seccion%>
             </td>
             <td>
-                <%: item.Periodo %>
+                <%:item.Periodo%>
             </td>
             <td>
                 <a title="Editar" href="<%=Url.Action("Edit", "Actividad", new {id = item.IdActividad}, null)%>">
@@ -99,10 +102,12 @@
             </td>
         </tr>
     
-    <% } %>
+    <%
+           }%>
 
     </table>
-
+    <%
+       }%>
     <script type="text/javascript">
     $(document).ready(function () {
         $("input#actividad").autocomplete('<%= Url.Action("Find", "Actividad") %>');

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.UI.HtmlControls;
 using AsistenteUCAB.Modelos;
 using AsistenteUCAB.Repositorios;
@@ -11,6 +12,14 @@ namespace AsistenteUCAB.Controllers
 {
     public class ActividadController : Controller
     {
+        protected override void Initialize(RequestContext requestContext)
+        {
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
+            ViewData["Materia.Nombre"] = new SelectList(nombresMaterias);
+            base.Initialize(requestContext);
+        }
         //
         // GET: /Actividad/
 
@@ -51,11 +60,6 @@ namespace AsistenteUCAB.Controllers
 
         public ActionResult Create()
         {
-            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
-            IList<Materium> listaMaterias = repositorioMateria.GetAll();
-            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
-            ViewData["Materia.Nombre"] = new SelectList(nombresMaterias);
-
             return View();
         }
 
@@ -80,8 +84,6 @@ namespace AsistenteUCAB.Controllers
                 if(resultado.Equals("true"))
                     return RedirectToAction("Index");
             }
-            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
-            ViewData["Materia.Nombre"] = new SelectList(nombresMaterias);
             return View(Actividad);
             
         }

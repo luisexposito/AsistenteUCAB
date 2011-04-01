@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.UI.HtmlControls;
 using AsistenteUCAB.Modelos;
 using AsistenteUCAB.Repositorios;
@@ -11,6 +12,12 @@ namespace AsistenteUCAB.Controllers
 {
     public class AlumnoController : Controller
     {
+        protected override void Initialize(RequestContext requestContext)
+        {
+
+            base.Initialize(requestContext);
+        }
+
         //
         // GET: /Alumno/
 

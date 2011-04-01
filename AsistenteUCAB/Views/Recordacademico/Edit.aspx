@@ -6,72 +6,71 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Editar Record Academico</h2>
+    <h2>Gestion de Records Academicos</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
-        
+
         <fieldset>
-            <legend>Fields</legend>
+            <legend>Editar Entrada al Record Academico:</legend>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Expediente) %>
+                <%: Html.Label("Estudiante")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Expediente) %>
-                <%: Html.ValidationMessageFor(model => model.Expediente) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdMateria) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdMateria) %>
-                <%: Html.ValidationMessageFor(model => model.IdMateria) %>
+                <%: Html.DropDownList("Alumno.Nombre")%>
+                <%: Html.ValidationMessage("Alumno.Nombre")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdRecord) %>
+                <%: Html.Label("Materia") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdRecord) %>
-                <%: Html.ValidationMessageFor(model => model.IdRecord) %>
+                <%: Html.DropDownList("Materium.Nombre")%>
+                <%: Html.ValidationMessage("Materium.Nombre")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Nota) %>
+                <%: Html.Label("Nota")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nota) %>
-                <%: Html.ValidationMessageFor(model => model.Nota) %>
+                <%: Html.TextBox("Nota")%>
+                <%: Html.ValidationMessage("Nota")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.PeriodoAcademico) %>
+                <%: Html.Label("PeriodoAcademico")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.PeriodoAcademico) %>
-                <%: Html.ValidationMessageFor(model => model.PeriodoAcademico) %>
+                <%: Html.TextBox("PeriodoAcademico")%>
+                <%: Html.ValidationMessage("PeriodoAcademico")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Reparacion) %>
+                <%: Html.Label("Reparacion")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Reparacion) %>
-                <%: Html.ValidationMessageFor(model => model.Reparacion) %>
+                <%: Html.DropDownList("Reparacion")%>
+                <%: Html.ValidationMessage("Reparacion")%>
             </div>
+
+            <input type="hidden" name="IdRecord" value="<%:Model.IdRecord%>" />
+            <input type="hidden" name="IdMateria" value="<%:Model.IdMateria%>" />
+            <input type="hidden" name="Expediente" value="<%:Model.Expediente%>" />
             
-            <p>
-                <input type="submit" value="Save" />
-            </p>
+            <div class="editor-label">
+                <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
+            </div>
         </fieldset>
 
     <% } %>
 
-    <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </div>
+        <table>
+            <td><a title="Records Academicos" href="<%=Url.Action("Index")%>">
+                <img src="<%=Url.Content("~/Content/atras.png")%>" height="25px" width="25px" /></a></td>
+            <td><%: Html.ActionLink("Listado de Records Academicos", "Index")%></td>
+        </table>
+    
 
 </asp:Content>
 
