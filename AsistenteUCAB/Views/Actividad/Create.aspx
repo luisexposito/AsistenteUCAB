@@ -1,33 +1,42 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Actividad>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Create
+	Nueva Actividad
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Nueva Actividad</h2>
+    <h2>Gestion de Actividades</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
 
         <fieldset>
-            <legend>Fields</legend>
+            <legend>Crear nueva Actividad</legend>
             
+            
+            <div class="editor-label">
+                <%: Html.Label("Actividad") %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.Nombre) %>
+                <%: Html.ValidationMessageFor(model => model.Nombre) %>
+            </div>
+
+            <div class="editor-label">
+                <%: Html.Label("Materia")%>
+            </div>
+            <div class="editor-field">
+                <%: Html.DropDownList("Materia.Nombre")%>
+                <%: Html.ValidationMessage("Materia.Nombre", "*")%>
+            </div>
+
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.Expediente) %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Expediente) %>
                 <%: Html.ValidationMessageFor(model => model.Expediente) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.HoraFin) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.HoraFin) %>
-                <%: Html.ValidationMessageFor(model => model.HoraFin) %>
             </div>
             
             <div class="editor-label">
@@ -39,27 +48,11 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdActividad) %>
+                <%: Html.LabelFor(model => model.HoraFin) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdActividad) %>
-                <%: Html.ValidationMessageFor(model => model.IdActividad) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.IdMateria) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.IdMateria) %>
-                <%: Html.ValidationMessageFor(model => model.IdMateria) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Nombre) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nombre) %>
-                <%: Html.ValidationMessageFor(model => model.Nombre) %>
+                <%: Html.TextBoxFor(model => model.HoraFin) %>
+                <%: Html.ValidationMessageFor(model => model.HoraFin) %>
             </div>
 
             <div class="editor-label">
@@ -78,16 +71,19 @@
                 <%: Html.ValidationMessageFor(model => model.Periodo) %>
             </div>
             
-            <p>
-                <input type="submit" value="Create" />
-            </p>
+             <div class="editor-label">
+                <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
+            </div>
         </fieldset>
 
     <% } %>
 
-    <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </div>
+    <br />
+        <table>
+            <td><a title="Actividades" href="<%=Url.Action("Index")%>">
+                <img src="<%=Url.Content("~/Content/atras.png")%>" height="25px" width="25px" /></a></td>
+            <td><%: Html.ActionLink("Listado de Actividades", "Index")%></td>
+        </table>
 
 </asp:Content>
 

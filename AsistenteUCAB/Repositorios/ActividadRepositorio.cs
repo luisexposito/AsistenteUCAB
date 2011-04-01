@@ -11,40 +11,66 @@ namespace AsistenteUCAB.Repositorios
     {
         #region IRepositorio<Actividad> Members
 
-        int IRepositorio<Actividad>.Save(Actividad entity)
+        String IRepositorio<Actividad>.Save(Actividad entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Save(entity);
-                    transaction.Commit();
-                    return entity.IdActividad;
+                    try
+                    {
+                        session.Save(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
+
+
                 }
             }
         }
 
-        bool IRepositorio<Actividad>.Update(Actividad entity)
+        string IRepositorio<Actividad>.Update(Actividad entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Update(entity);
-                    transaction.Commit();
+                    try
+                    {
+                        session.Update(entity);
+                        transaction.Commit();
+                        return "true";
+                    } 
+                    catch(Exception e)
+                    {
+                        return e.Message;
+                    }
+                    
                 }
             }
-            return true;
         }
 
-        void IRepositorio<Actividad>.Delete(Actividad entity)
+        String IRepositorio<Actividad>.Delete(Actividad entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(entity);
-                    transaction.Commit();
+
+                    try
+                    {
+                        session.Delete(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    } 
                 }
             }
         }
@@ -54,6 +80,7 @@ namespace AsistenteUCAB.Repositorios
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 ICriteria criteria = session.CreateCriteria(typeof(Actividad));
+
                 return criteria.List<Actividad>();
             }
         }

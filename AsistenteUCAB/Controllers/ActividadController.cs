@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
 using AsistenteUCAB.Modelos;
 using AsistenteUCAB.Repositorios;
 
@@ -20,6 +21,21 @@ namespace AsistenteUCAB.Controllers
             return View(listaActividads);
         }
 
+        [HttpPost]
+        public ActionResult Index(HtmlForm form)
+        {
+            string nombre = Request["actividad"];
+            IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
+            IList<Actividad> todasActividades = myRepoActividad.GetAll();
+            IList<Actividad> listaActividades = new List<Actividad>();
+            foreach (var Actividad in todasActividades)
+            {
+                if (Actividad.Nombre == nombre)
+                    listaActividades.Add(Actividad);
+            }
+            return View(listaActividades);
+        }
+
         //
         // GET: /Actividad/Details/5
 
@@ -35,6 +51,11 @@ namespace AsistenteUCAB.Controllers
 
         public ActionResult Create()
         {
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
+            ViewData["Materia.Nombre"] = new SelectList(nombresMaterias);
+
             return View();
         }
 
@@ -44,12 +65,23 @@ namespace AsistenteUCAB.Controllers
         [HttpPost]
         public ActionResult Create(Actividad Actividad)
         {
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            
+            foreach (var materia in listaMaterias)
+                if (materia.Nombre == Actividad.Materia.Nombre)
+                    Actividad.IdMateria = materia.IdMateria;
+
             if(ModelState.IsValid)
             {
                 IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
-                myRepoActividad.Save(Actividad);
-                return RedirectToAction("Index");
+                String resultado = myRepoActividad.Save(Actividad);
+                
+                if(resultado.Equals("true"))
+                    return RedirectToAction("Index");
             }
+            IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
+            ViewData["Materia.Nombre"] = new SelectList(nombresMaterias);
             return View(Actividad);
             
         }
@@ -60,7 +92,12 @@ namespace AsistenteUCAB.Controllers
         public ActionResult Edit(int id)
         {
             IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
-            return View(myRepoActividad.GetById(id));
+
+            Actividad actividad = myRepoActividad.GetById(id);
+            IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
+            actividad.Materia = repositorioMateria.GetById(actividad.IdMateria);
+            
+            return View(actividad);
         }
 
         //
@@ -72,8 +109,11 @@ namespace AsistenteUCAB.Controllers
              if(ModelState.IsValid)
             {
                 IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
-                myRepoActividad.Update(Actividad);
-                return RedirectToAction("Index");
+                String resultado = myRepoActividad.Update(Actividad);
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index"); 
+                
             }
              return View(Actividad);
         }
@@ -86,8 +126,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
-                myRepoActividad.Delete(myRepoActividad.GetById(id));
-                return RedirectToAction("Index");
+                String resultado = myRepoActividad.Delete(myRepoActividad.GetById(id));
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index"); return RedirectToAction("Index");
             }
              return RedirectToAction("Index");
         }
@@ -99,6 +141,30 @@ namespace AsistenteUCAB.Controllers
         public ActionResult Delete(int id, Actividad Actividad)
         {
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Find(string q)
+        {
+            IRepositorio<Actividad> repoS = new ActividadRepositorio();
+            IList<Actividad> actividades = repoS.GetAll();
+            IList<Actividad> posiblesActividades = new List<Actividad>();
+
+            foreach (var item in actividades)
+            {
+                if (item.Nombre.Contains(q.ToUpper()) || item.Nombre.Contains(q.ToLower()))
+                {
+                    posiblesActividades.Add(item);
+                }
+            }
+            string[] emp = new string[posiblesActividades.Count];
+            int i = 0;
+            foreach (var actividad in posiblesActividades)
+            {
+                emp[i] = actividad.Nombre;
+                i++;
+            }
+
+            return Content(string.Join("\n", emp)); ;
         }
     }
 }

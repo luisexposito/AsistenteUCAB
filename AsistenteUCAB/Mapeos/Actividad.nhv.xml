@@ -5,12 +5,6 @@
 			<not-null />
 			<digits integerDigits="10" />
 		</property>
-		<property name="HoraFin">
-			<not-null />
-		</property>
-		<property name="HoraInicio">
-			<not-null />
-		</property>
 		<property name="IdActividad">
 			<not-null />
 			<digits integerDigits="10" />

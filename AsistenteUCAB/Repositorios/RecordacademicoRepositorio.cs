@@ -11,40 +11,64 @@ namespace AsistenteUCAB.Repositorios
     {
         #region IRepositorio<Recordacademico> Members
 
-        int IRepositorio<Recordacademico>.Save(Recordacademico entity)
+        String IRepositorio<Recordacademico>.Save(Recordacademico entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Save(entity);
-                    transaction.Commit();
-                    return entity.IdRecord;
+                    try
+                    {
+                        session.Save(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
+                    
                 }
             }
         }
 
-        bool IRepositorio<Recordacademico>.Update(Recordacademico entity)
+        String IRepositorio<Recordacademico>.Update(Recordacademico entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Update(entity);
-                    transaction.Commit();
+                    try
+                    {
+                        session.Update(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
+                    
                 }
             }
-            return true;
         }
 
-        void IRepositorio<Recordacademico>.Delete(Recordacademico entity)
+        String IRepositorio<Recordacademico>.Delete(Recordacademico entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(entity);
-                    transaction.Commit();
+                    try
+                    {
+                        session.Delete(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
                 }
             }
         }

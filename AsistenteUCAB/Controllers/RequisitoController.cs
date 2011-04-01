@@ -51,6 +51,7 @@ namespace AsistenteUCAB.Controllers
         {
             IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
             IList<Materium> listaMaterias = repositorioMateria.GetAll();
+            
             foreach (var materia in listaMaterias)
             {
                 if (materia.Nombre == Requisito.MateriaHijo.Nombre)
@@ -62,8 +63,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Requisito> myRepoRequisito = new RequisitoRepositorio();
-                myRepoRequisito.Save(Requisito);
-                return RedirectToAction("Index");
+                String resultado = myRepoRequisito.Save(Requisito);
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index");
             }
             return View(Requisito);
         }
@@ -93,7 +96,9 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Requisito> myRepoRequisito = new RequisitoRepositorio();
-                myRepoRequisito.Update(Requisito);
+                String resultado = myRepoRequisito.Update(Requisito);
+
+                if (resultado.Equals("true"))
                 return RedirectToAction("Index");
             }
             return View(Requisito);
@@ -107,8 +112,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Requisito> myRepoRequisito = new RequisitoRepositorio();
-                myRepoRequisito.Delete(myRepoRequisito.GetById(id));
-                return RedirectToAction("Index");
+                String resultado = myRepoRequisito.Delete(myRepoRequisito.GetById(id));
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index"); return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }

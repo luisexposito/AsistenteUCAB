@@ -9,19 +9,19 @@ namespace AsistenteUCAB.Repositorios
         ///  Metodo para guardar en el repositorio
         /// </summary>
         /// <param name="entity"> representa la entidad que maneja el repositorio</param>
-        int Save(T entity);
+        String Save(T entity);
 
         /// <summary>
         ///  Metodo para modificar el repositorio
         /// </summary>
         /// <param name="entity"> representa la entidad que maneja el repositorio</param>
-        bool Update(T entity);
+        String Update(T entity);
 
         /// <summary>
         ///  Metodo para eleminar del repositorio
         /// </summary>
         /// <param name="entiy"> representa la entidad que maneja el repositorio</param>
-        void Delete(T entiy);
+        String Delete(T entiy);
 
         /// <summary>
         ///  Retorna el todos los objetos del repositorio

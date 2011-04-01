@@ -63,8 +63,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Alumno> myRepoAlumno = new AlumnoRepositorio();
-                myRepoAlumno.Save(Alumno);
-                return RedirectToAction("Index");
+                String resultado = myRepoAlumno.Save(Alumno);
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index");
             }
             return View(Alumno);
         }
@@ -88,7 +90,9 @@ namespace AsistenteUCAB.Controllers
             {
                 IRepositorio<Alumno> myRepoAlumno = new AlumnoRepositorio();
                 Alumno.Expediente = id;
-                myRepoAlumno.Update(Alumno);
+                String resultado = myRepoAlumno.Update(Alumno);
+
+                if (resultado.Equals("true"))
                 return RedirectToAction("Index");
             }
             return View(Alumno);
@@ -102,8 +106,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Alumno> myRepoAlumno = new AlumnoRepositorio();
-                myRepoAlumno.Delete(myRepoAlumno.GetById(id));
-                return RedirectToAction("Index");
+                String resultado = myRepoAlumno.Delete(myRepoAlumno.GetById(id));
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index"); return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }

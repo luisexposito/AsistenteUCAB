@@ -11,40 +11,64 @@ namespace AsistenteUCAB.Repositorios
     {
         #region IRepositorio<Requisito> Members
 
-        int IRepositorio<Requisito>.Save(Requisito entity)
+        String IRepositorio<Requisito>.Save(Requisito entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Save(entity);
-                    transaction.Commit();
-                    return entity.IdMateriaPadre;// la PK es Compuesta
+                    try
+                    {
+                        session.Save(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
+                    
                 }
             }
         }
 
-        bool IRepositorio<Requisito>.Update(Requisito entity)
+        String IRepositorio<Requisito>.Update(Requisito entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Update(entity);
-                    transaction.Commit();
+                    try
+                    {
+                        session.Update(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
+                    
                 }
             }
-            return true;
         }
 
-        void IRepositorio<Requisito>.Delete(Requisito entity)
+        String IRepositorio<Requisito>.Delete(Requisito entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(entity);
-                    transaction.Commit();
+                    try
+                    {
+                        session.Delete(entity);
+                        transaction.Commit();
+                        return "true";
+                    }
+                    catch (Exception e)
+                    {
+                        return e.Message;
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@
         <%: Html.ValidationSummary(true) %>
 
         <fieldset>
-            <legend>Fields</legend>
+            <legend>Crear nuevo Requsito</legend>
             
             <div class="editor-label">
                 <%: Html.Label("MateriaPadre.Nombre")%>

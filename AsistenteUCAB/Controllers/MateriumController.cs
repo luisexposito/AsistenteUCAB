@@ -65,8 +65,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Materium> myRepoMaterium = new MateriumRepositorio();
-                myRepoMaterium.Save(Materium);
-                return RedirectToAction("Index");
+                String resultado = myRepoMaterium.Save(Materium);
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index");
             }
             return View(Materium);
         }
@@ -90,7 +92,9 @@ namespace AsistenteUCAB.Controllers
             {
                 IRepositorio<Materium> myRepoMaterium = new MateriumRepositorio();
                 Materium.IdMateria = id;
-                myRepoMaterium.Update(Materium);
+                String resultado = myRepoMaterium.Update(Materium);
+
+                if (resultado.Equals("true"))
                 return RedirectToAction("Index");
             }
             return View(Materium);
@@ -104,8 +108,10 @@ namespace AsistenteUCAB.Controllers
             if(ModelState.IsValid)
             {
                 IRepositorio<Materium> myRepoMaterium = new MateriumRepositorio();
-                myRepoMaterium.Delete(myRepoMaterium.GetById(id));
-                return RedirectToAction("Index");
+                String resultado = myRepoMaterium.Delete(myRepoMaterium.GetById(id));
+
+                if (resultado.Equals("true"))
+                    return RedirectToAction("Index"); return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
