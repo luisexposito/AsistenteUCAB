@@ -50,11 +50,14 @@ go
 CREATE TABLE [ALUMNO]
 (
  [expediente] Int NOT NULL,
+ [username] VarChar(25) NOT NULL UNIQUE NONCLUSTERED,
  [nombre] VarChar(20) NOT NULL,
  [apellido] VarChar(20) NOT NULL,
  [cedula] VarChar(10) NOT NULL,
  [correoUcab] VarChar(50) NOT NULL,
- [correoAlternativo] VarChar(50) NULL
+ [correoAlternativo] VarChar(50) NULL,
+ [theme] VarChar(25) NOT NULL,
+ [creationDate] DateTime NOT NULL
 )
 go
 

@@ -88,6 +88,12 @@ namespace AsistenteUCAB.Repositorios
                 return session.CreateCriteria<Alumno>().Add(Restrictions.Eq("Expediente", id)).UniqueResult<Alumno>();
         }
 
+        Alumno IRepositorio<Alumno>.GetByUniqueAtribute(string uniqueAtribute)
+        {
+            using (ISession session = NHibernateHelper.OpenSession())
+                return session.CreateCriteria<Alumno>().Add(Restrictions.Eq("Username", uniqueAtribute)).UniqueResult<Alumno>();
+        }
+
         #endregion
     }
 }

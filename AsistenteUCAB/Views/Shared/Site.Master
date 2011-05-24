@@ -3,18 +3,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link href="<%: Url.Content("~/Content/default.css")%>" rel="stylesheet" />
-    <link href="<%: Url.Content("~/Content/themes/" + Html.GetTheme() +  "/jquery.ui.all.css")%>" rel="stylesheet" />
+    <link href="<%: Url.Content("~/Content/Site.css")%>" rel="stylesheet" />
     <link rel="SHORTCUT ICON" href="../../Content/logo.ico"/>
 
-   <!-- <link href="<%: "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/" + Html.GetTheme()  + "/jquery-ui.css" %>" rel="stylesheet" />-->
-
+   
     <script type="text/javascript" src="<%:Url.Content("~/Scripts/jquery-1.4.2.min.js") %>"></script>
     <script type="text/javascript" src="<%:Url.Content("~/Scripts/jquery-ui.1.8.2.min.js") %>"></script>
     <script type="text/javascript" src="<%:Url.Content("~/Scripts/jquery-getCSS.min.js") %>"></script>
     <script type="text/javascript" src="<%:Url.Content("~/Scripts/jquery.loadImages.1.0.1.min.js") %>"></script>
     <script type="text/javascript" src="<%:Url.Content("~/Scripts/mvcjqueryuiexample.js") %>"></script>
     <script type="text/javascript" src="<%:Url.Content("~/Scripts/jquery.autocomplete.js") %>"></script>
+
+    <style>
+        .bl3 {background: url(../../Content/bl2.jpg) 0 100% no-repeat #cdc9c9; width:910px; margin-left:auto; margin-right:auto;}
+        .br3 {background: url(../../Content/br2.jpg) 100% 100% no-repeat; height:25px; margin-top:5px; margin-bottom:5px}
+        .tl3 {background: url(../../Content/tl2.jpg) 0 0 no-repeat}
+        .tr3 {background: url(../../Content/tr2.jpg) 100% 0 no-repeat; padding:10px; text-align:center}
+    </style>
 
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
@@ -25,18 +30,148 @@
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 </head>
 <body>
-    <div class="main">
-        <div class="header ui-widget-content ui-corner-bottom ui-helper-clearfix">
-            <div class="logo">
+    <div id="Header">
+	    <div id="compHeaderIzq">
+        </div>
+        <div id="contHeader">
+            <div id="title">
+                <a href="http://www.ventanaturistica.com" ><img src="../../Content/logo.png" /></a>
             </div>
-            <div class="usermenu ui-widget ui-widget-header ui-corner-bottom">
+              
+            <div id="logindisplay">
                 <% Html.RenderPartial("LogOnUserControl"); %>
+            </div> 
+
+            <div id="menucontainer" style=" margin-top:75px">
+                    <ul id="nav">         
+                        <li><%: Html.ActionLink("Home", "Index", "Home")%></li>
+                        <li><%: Html.ActionLink("Actividad", "Index", "Actividad")%></li>     
+                        <li><%: Html.ActionLink("Record Academico", "Index", "Recordacademico")%></li>
+                    </ul>
+            </div>       
+            
+        </div>
+        <div id="compHeaderDer">
+        </div>
+    </div>
+
+        
+            <div id="Main">
+	            <div id="compMainIzq">
+                </div>
+                <div id="contMain">
+                    <div style="height:27px">
+                    </div>
+            
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+                
+                    <div class="bl3"><div class="br3"><div class="tl3"><div class="tr3">
+                    </div></div></div></div>
+
+                    <div class="hr"></div>
+                    <br />
+                </div>
+            
+                <div id="compMainDer">
+                </div>
+            </div>
+          
+         <div id="Footer">
+	        <div id="compFooterIzq">
+            </div>
+            <div id="contFooter">
+                <div>
+                    <br /><br />
+                    Asistente UCAB &copy;
+                </div>            
+            </div>
+            <div id="compFooterDer">
             </div>
         </div>
-        <div class="content ui-widget-content ui-corner-all">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </div>
-        <% Html.RenderPartial("FooterUserControl"); %>
-    </div>
+
 </body>
+
+
+    <!-- javascript coding -->
+    <script type="text/javascript">
+        var div7 = document.getElementById("contMain");
+        var div5 = document.getElementById("compMainIzq");
+        var div6 = document.getElementById("compMainDer");
+        var div = document.getElementById("Main");
+        if (div7.offsetHeight > 500) {
+            div5.style.height = div7.offsetHeight + 'px';
+            div6.style.height = div7.offsetHeight + 'px';
+            div.style.height = div7.offsetHeight + 'px';
+        }
+        else {
+            div5.style.height = '500px';
+            div6.style.height = '500px';
+            div.style.height = '500px';
+        }
+
+
+
+        window.onresize = fillWindow;
+
+
+        function fillWindow() {
+
+            var div = document.getElementById("compFooterIzq");
+            var div2 = document.getElementById("compFooterDer");
+            var div3 = document.getElementById("compHeaderIzq");
+            var div4 = document.getElementById("compHeaderDer");
+            var div5 = document.getElementById("compMainIzq");
+            var div6 = document.getElementById("compMainDer");
+
+            var ancho = 0;
+            try {
+                if (window.innerHeight) { //if browser supports window.innerWidth
+                    // mapDiv.style.height = window.innerHeight + 'px';
+                    ancho = eval(window.innerWidth);
+                    if (ancho <= 960)
+                        ancho = 0
+                    else
+                        ancho = (ancho - 960) / 2;
+
+                    div.style.width = ancho + 'px';
+                    div2.style.width = ancho + 'px';
+                    div3.style.width = ancho + 'px';
+                    div4.style.width = ancho + 'px';
+                    div5.style.width = ancho + 'px';
+                    div6.style.width = ancho + 'px';
+
+
+                }
+                else {	//MSIE
+                    ancho = eval(document.body.clientWidth);
+                    if (ancho <= 960)
+                        ancho = 0
+                    else
+                        ancho = (ancho - 960) / 2;
+
+                    div.style.width = ancho + 'px';
+                    div2.style.width = ancho + 'px';
+                    div3.style.width = (ancho + 9) + 'px';
+                    div4.style.width = (ancho + 9) + 'px';
+                    div5.style.width = ancho + 'px';
+                    div6.style.width = ancho + 'px';
+
+                }
+
+            }
+            catch (ex) {
+            }
+
+        }
+        fillWindow();
+    </script>
+    <script type="text/javascript" src="<%:Url.Content("~/Scripts/mootools-1.2.1-core.js") %>"></script>
+    <script type="text/javascript" src="<%:Url.Content("~/Scripts/MenuMatic_0.68.3.js") %>"></script>
+    
+	<!-- Create a MenuMatic Instance -->
+	<script type="text/javascript" >
+	    var myMenu = new MenuMatic({/*options here*/
+	});	
+	</script>
+
 </html>

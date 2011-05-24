@@ -3,7 +3,6 @@
 @import "typography.css";
 @import "layout.css";
 
-
 /* TÍTULOS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6
@@ -34,7 +33,6 @@ h5, h6
     padding: 0px 0px 0px 45px;
     font-size: 1em;
 }
-
 
 /* esta regla crea etiquetas <h2> que son el 
 primer elemento secundario de las columnas de tabla izquierda y derecha */
@@ -121,13 +119,6 @@ legend
 input[type="text"] 
 {
     width: 200px;
-    border: 1px solid #CCC; 
-}
-
-textarea
-{
-    width: 200px;
-    height: 100px;
 }
 
 input[type="password"] 
@@ -142,6 +133,8 @@ input[type="password"]
 table 
 {
   text-align: center;
+  margin-left : auto;
+  margin-right : auto;
 }
 
 table td 
@@ -328,7 +321,8 @@ div#title
 	height:35px;
 	width:35px;
 }
-/*Estilo para el Autocomplete*/
+/*---------------------------------------------------
+-------------------------Estilo para el Autocomplete*/
 
 .acInput {
         width: 200px;

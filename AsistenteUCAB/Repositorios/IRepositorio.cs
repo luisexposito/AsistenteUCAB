@@ -33,7 +33,14 @@ namespace AsistenteUCAB.Repositorios
         /// Obtiene el objeto del repositorio segun su clave primaria
         /// </summary>
         /// <param name="id">parametro utilizado para la buscqueda</param>
-        /// <returns>Retorna la persona que tenga el id especificado</returns>
+        /// <returns>Retorna el objeto que tenga el id especificado</returns>
         T GetById(int id);
+
+        /// <summary>
+        /// Obtiene el objeto del repositorio segun una clave unica
+        /// </summary>
+        /// <param name="uniqueAtribute">parametro utilizado para la buscqueda</param>
+        /// <returns>Retorna el objeto que tenga el uniqueAtribute especificado</returns>
+        T GetByUniqueAtribute(string uniqueAtribute);
     }
 }

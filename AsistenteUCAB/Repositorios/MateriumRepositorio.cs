@@ -90,6 +90,11 @@ namespace AsistenteUCAB.Repositorios
                 return session.CreateCriteria<Materium>().Add(Restrictions.Eq("IdMateria", id)).UniqueResult<Materium>();
         }
 
+        public Materium GetByUniqueAtribute(string uniqueAtribute)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

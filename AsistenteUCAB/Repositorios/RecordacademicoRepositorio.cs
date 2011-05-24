@@ -89,6 +89,11 @@ namespace AsistenteUCAB.Repositorios
                 return session.CreateCriteria<Recordacademico>().Add(Restrictions.Eq("IdRecord", id)).UniqueResult<Recordacademico>();
         }
 
+        public Recordacademico GetByUniqueAtribute(string uniqueAtribute)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

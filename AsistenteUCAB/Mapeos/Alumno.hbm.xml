@@ -8,6 +8,9 @@
 		<property name="Apellido" column="`apellido`" length="20" />
 		<property name="Cedula" column="`cedula`" length="10" />
     <property name="CorreoUcab" column="`correoUcab`" length="50" />
-		<property name="CorreoAlternativo" column="`correoAlternativo`" length="50" />		
+		<property name="CorreoAlternativo" column="`correoAlternativo`" length="50" />
+    <property name="Username" column="`username`" length="25" />
+    <property name="CreationDate" column="`creationDate`" />
+    <property name="Theme" column="`theme`" length="25" />
 	</class>
 </hibernate-mapping>

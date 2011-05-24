@@ -2,13 +2,14 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Web.Profile;
 using System.Web.Security;
 
 namespace AsistenteUCAB.Modelos
 {
 
-    #region Modelos
-    [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no coinciden.")]
+    #region Models
+    [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "The new password and confirmation password do not match.")]
     public class ChangePasswordModel
     {
         [Required]
@@ -24,14 +25,14 @@ namespace AsistenteUCAB.Modelos
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("Confirmar la nueva contraseña")]
+        [DisplayName("Confirmar contraseña")]
         public string ConfirmPassword { get; set; }
     }
 
     public class LogOnModel
     {
         [Required]
-        [DisplayName("Nombre de usuario")]
+        [DisplayName("Nombre de Usuario")]
         public string UserName { get; set; }
 
         [Required]
@@ -39,11 +40,11 @@ namespace AsistenteUCAB.Modelos
         [DisplayName("Contraseña")]
         public string Password { get; set; }
 
-        [DisplayName("Recordar mi cuenta")]
+        [DisplayName("Recordarme?")]
         public bool RememberMe { get; set; }
     }
 
-    [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+    [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "Las contraseñas no coinciden.")]
     public class RegisterModel
     {
         [Required]
@@ -52,7 +53,7 @@ namespace AsistenteUCAB.Modelos
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [DisplayName("Dirección de correo electrónico")]
+        [DisplayName("Email")]
         public string Email { get; set; }
 
         [Required]
@@ -69,10 +70,10 @@ namespace AsistenteUCAB.Modelos
     #endregion
 
     #region Services
-    // El tipo FormsAuthentication está sellado y contiene miembros estáticos, por lo que es difícil
-    // realizar pruebas unitarias en el código que llama a sus miembros. La interfaz y la clase auxiliar siguientes muestran
-    // cómo crear un contenedor abstracto en torno a un tipo como este para que puedan realizarse pruebas unitarias en el código de AccountController
-    // .
+    // The FormsAuthentication type is sealed and contains static members, so it is difficult to
+    // unit test code that calls its members. The interface and helper class below demonstrate
+    // how to create an abstract wrapper around such a type in order to make the AccountController
+    // code unit testable.
 
     public interface IMembershipService
     {
@@ -81,6 +82,7 @@ namespace AsistenteUCAB.Modelos
         bool ValidateUser(string userName, string password);
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
+        bool ChangeEmail(string userName, string newEmailAddress);
     }
 
     public class AccountMembershipService : IMembershipService
@@ -107,31 +109,34 @@ namespace AsistenteUCAB.Modelos
 
         public bool ValidateUser(string userName, string password)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "userName");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "password");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El nombre de usuario no puede estar vacio.", "userName");
+            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
 
             return _provider.ValidateUser(userName, password);
         }
 
         public MembershipCreateStatus CreateUser(string userName, string password, string email)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "userName");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "password");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "email");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El nombre de usuario no puede estar vacio.", "userName");
+            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
+            if (String.IsNullOrEmpty(email)) throw new ArgumentException("Value cannot be null or empty.", "email");
 
             MembershipCreateStatus status;
             _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+
+            ProfileBase.Create(userName, true);
+
             return status;
         }
 
         public bool ChangePassword(string userName, string oldPassword, string newPassword)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "userName");
-            if (String.IsNullOrEmpty(oldPassword)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "oldPassword");
-            if (String.IsNullOrEmpty(newPassword)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "newPassword");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El nombre de usuario no puede estar vacio.", "userName");
+            if (String.IsNullOrEmpty(oldPassword)) throw new ArgumentException("Value cannot be null or empty.", "oldPassword");
+            if (String.IsNullOrEmpty(newPassword)) throw new ArgumentException("Value cannot be null or empty.", "newPassword");
 
-            // El elemento ChangePassword() subyacente iniciará una excepción en lugar de
-            // devolver false en determinados escenarios de error.
+            // The underlying ChangePassword() will throw an exception rather
+            // than return false in certain failure scenarios.
             try
             {
                 MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
@@ -142,6 +147,23 @@ namespace AsistenteUCAB.Modelos
                 return false;
             }
             catch (MembershipPasswordException)
+            {
+                return false;
+            }
+        }
+
+        public bool ChangeEmail(string userName, string newEmailAddress)
+        {
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El nombre de usuario no puede estar vacio.", "userName");
+            if (String.IsNullOrEmpty(newEmailAddress)) throw new ArgumentException("El email no puede estar vacio.", "newEmailAddress");
+
+            try
+            {
+                MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
+                currentUser.Email = newEmailAddress;
+                return true;
+            }
+            catch (ArgumentException)
             {
                 return false;
             }
@@ -158,7 +180,7 @@ namespace AsistenteUCAB.Modelos
     {
         public void SignIn(string userName, bool createPersistentCookie)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El valor no puede ser NULL ni estar vacío.", "userName");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El nombre de usuario no puede estar vacio.", "userName");
 
             FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
         }
@@ -175,39 +197,39 @@ namespace AsistenteUCAB.Modelos
     {
         public static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
-            // Vaya a http://go.microsoft.com/fwlink/?LinkID=177550 para
-            // obtener una lista completa de códigos de estado.
+            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
+            // a full list of status codes.
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "El nombre de usuario ya existe. Escriba otro nombre de usuario.";
+                    return "El nombre de usuario no esta disponible. Por favor intente otro.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "Ya existe un nombre de usuario para esa dirección de correo electrónico. Especifique otra dirección de correo electrónico.";
+                    return "Ya existe este email registrado en otra cuenta. Por favor intente de nuevo.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "La contraseña especificada no es válida. Escriba un valor de contraseña válido.";
+                    return "La contraseña es invalida. Por favor intente de nuevo.";
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return "La dirección de correo electrónico especificada no es válida. Compruebe el valor e inténtelo de nuevo.";
+                    return "El email es invalido. Por favor intente de nuevo.";
 
                 case MembershipCreateStatus.InvalidAnswer:
-                    return "La respuesta de recuperación de la contraseña especificada no es válida. Compruebe el valor e inténtelo de nuevo.";
+                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.InvalidQuestion:
-                    return "La pregunta de recuperación de la contraseña especificada no es válida. Compruebe el valor e inténtelo de nuevo.";
+                    return "The password retrieval question provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "El nombre de usuario especificado no es válido. Compruebe el valor e inténtelo de nuevo.";
+                    return "El nombre de usuario es invalido. Por favor intente de nuevo.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "El proveedor de autenticación devolvió un error. Compruebe los datos especificados e inténtelo de nuevo. Si el problema continúa, póngase en contacto con el administrador del sistema.";
+                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "La solicitud de creación de usuario se ha cancelado. Compruebe los datos especificados e inténtelo de nuevo. Si el problema continúa, póngase en contacto con el administrador del sistema.";
+                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 default:
-                    return "Error desconocido. Compruebe los datos especificados e inténtelo de nuevo. Si el problema continúa, póngase en contacto con el administrador del sistema.";
+                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
     }
@@ -215,7 +237,7 @@ namespace AsistenteUCAB.Modelos
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class PropertiesMustMatchAttribute : ValidationAttribute
     {
-        private const string _defaultErrorMessage = "'{0}' y '{1}' no coinciden.";
+        private const string _defaultErrorMessage = "'{0}' y '{1}' no son el mismo.";
         private readonly object _typeId = new object();
 
         public PropertiesMustMatchAttribute(string originalProperty, string confirmProperty)
@@ -254,7 +276,7 @@ namespace AsistenteUCAB.Modelos
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class ValidatePasswordLengthAttribute : ValidationAttribute
     {
-        private const string _defaultErrorMessage = "'{0}' debe tener al menos {1} caracteres.";
+        private const string _defaultErrorMessage = "'{0}' must be at least {1} characters long.";
         private readonly int _minCharacters = Membership.Provider.MinRequiredPasswordLength;
 
         public ValidatePasswordLengthAttribute()

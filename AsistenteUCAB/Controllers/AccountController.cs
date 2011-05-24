@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using AsistenteUCAB.Modelos;
+using AsistenteUCAB.Repositorios;
 
 namespace AsistenteUCAB.Controllers
 {
@@ -78,34 +80,57 @@ namespace AsistenteUCAB.Controllers
         // URL: /Account/Register
         // **************************************
 
+        public IEnumerable<string> GetCountryList()
+        {
+            List<string> list = new List<string>();
+            CultureInfo[] cultures =
+                        CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures |
+                        CultureTypes.SpecificCultures);
+            foreach (CultureInfo info in cultures)
+            {
+                RegionInfo info2 = new RegionInfo(info.LCID);
+                if (!list.Contains(info2.EnglishName))
+                {
+                    list.Add(info2.DisplayName);
+                }
+            }
+            return list;
+        }
+
         public ActionResult Register()
         {
             ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewData["Pais"] = new SelectList(GetCountryList());
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(Alumno alumno)
         {
+
             if (ModelState.IsValid)
             {
-                // Intento de registrar al usuario
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
+                // Attempt to register the user
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(alumno.Username, alumno.Password, alumno.CorreoUcab);
+                IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
+                string resultado = repositorioAlumno.Save(alumno);
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-                }
+                if (resultado.Equals("true"))
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        FormsService.SignIn(alumno.Username, false /* createPersistentCookie */);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+                    }
             }
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            // If we got this far, something failed, redisplay form
             ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View(model);
+            ViewData["Pais"] = new SelectList(GetCountryList());
+            return View();
         }
 
         // **************************************
@@ -147,6 +172,58 @@ namespace AsistenteUCAB.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult EditProfile()
+        {
+            MembershipUser user = Membership.GetUser();
+            IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
+            Alumno usuario = repositorioAlumno.GetByUniqueAtribute(User.Identity.Name);
+            usuario.Theme = this.HttpContext.Profile.GetPropertyValue("Theme").ToString();
+            usuario.CreationDate = user.CreationDate.ToShortDateString();
+            return View(usuario);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditProfileBasic(Alumno usuario)
+        {
+            IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
+            Alumno miUsuario = repositorioAlumno.GetByUniqueAtribute(User.Identity.Name);
+            if (string.IsNullOrWhiteSpace(miUsuario.CorreoUcab))
+            {
+                ModelState.AddModelError("", "Email no puede ser vacio.");
+            }
+            else
+                if (MembershipService.ChangeEmail(User.Identity.Name, miUsuario.CorreoUcab) == false)
+                {
+                    ModelState.AddModelError("", "El email no es valido.");
+                }
+            if (repositorioAlumno.Update(miUsuario) != "true")
+            {
+                ModelState.AddModelError("", "Error al actualizar sus datos, por favor intente de nuevo.");
+                return RedirectToAction("EditProfile");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditProfileDetails(ProfileModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrWhiteSpace(model.Theme))
+                {
+                    ModelState.AddModelError("", "A theme must be selected.");
+                }
+                else
+                {
+                    this.HttpContext.Profile.SetPropertyValue("Theme", model.Theme);
+                }
+            }
+            return RedirectToAction("EditProfile");
         }
 
     }

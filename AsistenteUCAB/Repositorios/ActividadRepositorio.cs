@@ -91,6 +91,11 @@ namespace AsistenteUCAB.Repositorios
                 return session.CreateCriteria<Actividad>().Add(Restrictions.Eq("IdActividad", id)).UniqueResult<Actividad>();
         }
 
+        public Actividad GetByUniqueAtribute(string uniqueAtribute)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

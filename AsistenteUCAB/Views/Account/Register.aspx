@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/TwoColumn.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.RegisterModel>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Alumno>" %>
 
 <asp:Content ID="registerTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Registrarse
@@ -20,19 +20,11 @@
                 <legend>Información de cuenta</legend>
                 
                 <div class="editor-label">
-                    <%: Html.LabelFor(m => m.UserName) %>
+                    <%: Html.LabelFor(m => m.Username) %>
                 </div>
                 <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.UserName) %>
-                    <%: Html.ValidationMessageFor(m => m.UserName) %>
-                </div>
-                
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.Email) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.Email) %>
-                    <%: Html.ValidationMessageFor(m => m.Email) %>
+                    <%: Html.TextBoxFor(m => m.Username)%>
+                    <%: Html.ValidationMessageFor(m => m.Username)%>
                 </div>
                 
                 <div class="editor-label">
@@ -51,9 +43,57 @@
                     <%: Html.ValidationMessageFor(m => m.ConfirmPassword) %>
                 </div>
                 
-                <p>
-                    <input type="submit" value="Registrarse" />
-                </p>
+                <div class="editor-label">
+                    <%: Html.LabelFor(model => model.Expediente) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(model => model.Expediente) %>
+                    <%: Html.ValidationMessageFor(model => model.Expediente) %>
+                </div>
+            
+                <div class="editor-label">
+                    <%: Html.LabelFor(model => model.Nombre) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(model => model.Nombre) %>
+                    <%: Html.ValidationMessageFor(model => model.Nombre) %>
+                </div>
+
+                <div class="editor-label">
+                    <%: Html.LabelFor(model => model.Apellido) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(model => model.Apellido) %>
+                    <%: Html.ValidationMessageFor(model => model.Apellido) %>
+                </div>
+            
+                <div class="editor-label">
+                    <%: Html.LabelFor(model => model.Cedula) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(model => model.Cedula) %>
+                    <%: Html.ValidationMessageFor(model => model.Cedula) %>
+                </div>
+
+                <div class="editor-label">
+                    <%: Html.LabelFor(model => model.CorreoUcab) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(model => model.CorreoUcab) %>
+                    <%: Html.ValidationMessageFor(model => model.CorreoUcab) %>
+                </div>
+
+                <div class="editor-label">
+                    <%: Html.LabelFor(model => model.CorreoAlternativo) %>
+                </div>
+                <div class="editor-field">
+                    <%: Html.TextBoxFor(model => model.CorreoAlternativo) %>
+                    <%: Html.ValidationMessageFor(model => model.CorreoAlternativo) %>
+                </div>
+            
+                <div class="editor-label">
+                    <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
+                </div>
             </fieldset>
         </div>
     <% } %>
