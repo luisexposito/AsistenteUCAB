@@ -366,15 +366,15 @@ DIV#title2
 -----------------------------------------------------------*/
 A:link
 {
-	color: #CF7F18;
+	color: #C7075A;
 }
 A:visited
 {
-	color: #AD660C;
+	color: #C7075A;
 }
 A:hover, A:focus
 {
-	color: #FF9814;
+	color: #FF1179;
 	text-decoration: none;
 }
 /*----[ LINKS ]----
@@ -407,10 +407,10 @@ all menu links*/
 	background-color: #F6C739;
 	color: #FFF;
 }
-/*sub menu links on hover or focus*/
+/*sub menu links on hover or focus6565FF*/
 #subMenusContainer A:hover, #subMenusContainer A:focus, #nav A.mainMenuParentBtnFocused, #subMenusContainer A.subMenuParentBtnFocused, #nav LI A:hover, #nav LI A:focus
 {
-	background-color: #F6C739;
+	background-color: #7373FF;
 	color: #FFF;
 }
 /*Parent Sub Menu Links ---[javascript users only]*/

@@ -20,7 +20,7 @@ namespace AsistenteUCAB.Controllers
         public ActionResult Index()
         {
             ViewData["Message"] = "ASP.NET MVC";
-            ReadPdfFile();
+            //ReadPdfFile();
             return View();
         }
 
