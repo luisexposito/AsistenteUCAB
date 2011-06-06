@@ -10,6 +10,20 @@ using AsistenteUCAB.Repositorios;
 
 namespace AsistenteUCAB.Controllers
 {
+    public class ActividadActionResponseModel
+    {
+        public String Status;
+        public Int64 Source_id;
+        public Int64 Target_id;
+
+        public ActividadActionResponseModel(String status, Int64 source_id, Int64 target_id)
+        {
+            Status = status;
+            Source_id = source_id;
+            Target_id = target_id;
+        }
+    }
+
     public class ActividadController : Controller
     {
         protected override void Initialize(RequestContext requestContext)
@@ -167,6 +181,48 @@ namespace AsistenteUCAB.Controllers
             }
 
             return Content(string.Join("\n", emp)); ;
+        }
+
+
+        public ActionResult Data()
+        {
+            MyEventsDataContext data = new MyEventsDataContext();
+            return View(data.ACTIVIDAD);
+        }
+
+        public ActionResult Save(ACTIVIDAD changedEvent, FormCollection actionValues)
+        {
+            String action_type = actionValues["!nativeeditor_status"];
+            Int64 source_id = Int64.Parse(actionValues["id"]);
+            Int64 target_id = source_id;
+
+
+            MyEventsDataContext data = new MyEventsDataContext();
+            try
+            {
+                switch (action_type)
+                {
+                    case "inserted":
+                        data.ACTIVIDAD.InsertOnSubmit(changedEvent);
+                        break;
+                    case "deleted":
+                        changedEvent = data.ACTIVIDAD.SingleOrDefault(ev => ev.idActividad == source_id);
+                        data.ACTIVIDAD.DeleteOnSubmit(changedEvent);
+                        break;
+                    default: // "updated"
+                        changedEvent = data.ACTIVIDAD.SingleOrDefault(ev => ev.idActividad == source_id);
+                        UpdateModel(changedEvent);
+                        break;
+                }
+                data.SubmitChanges();
+                target_id = changedEvent.idActividad;
+            }
+            catch
+            {
+                action_type = "error";
+            }
+
+            return View(new ActividadActionResponseModel(action_type, source_id, target_id));
         }
     }
 }

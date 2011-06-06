@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AsistenteUCAB" Class="MyEventsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LUISEXPC\SQLEXPRESS;Initial Catalog=AsistenteUCAB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="AsistenteUCABConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ACTIVIDAD" Member="ACTIVIDAD">
+    <Type Name="ACTIVIDAD">
+      <Column Name="idActividad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idMateria" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="expediente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="horaInicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="horaFin" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="seccion" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="periodo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
