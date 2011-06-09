@@ -1,0 +1,18 @@
+AZUL------------------
+Oscuro
+#3252A1
+
+#5877C5
+#505ABC
+
+#7373FF
+Claro
+
+VINOTINTO ROSADO------
+Oscuro
+#C7075A
+
+#5877C5
+
+#FF1179
+Claro

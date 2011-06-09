@@ -50,13 +50,14 @@ go
 CREATE TABLE [ALUMNO]
 (
  [expediente] Int NOT NULL,
+ [cedula] VarChar(10) NOT NULL,
  [username] VarChar(25) NOT NULL UNIQUE NONCLUSTERED,
  [nombre] VarChar(20) NOT NULL,
  [apellido] VarChar(20) NOT NULL,
- [cedula] VarChar(10) NOT NULL,
+ [sexo] VarChar(1) NOT NULL,
  [correoUcab] VarChar(50) NOT NULL,
  [correoAlternativo] VarChar(50) NULL,
- [theme] VarChar(25) NOT NULL,
+ [idDireccion] Int NOT NULL,
  [creationDate] DateTime NOT NULL
 )
 go
@@ -64,6 +65,23 @@ go
 -- Add keys for table ALUMNO
 
 ALTER TABLE [ALUMNO] ADD CONSTRAINT [Key2] PRIMARY KEY ([expediente])
+go
+
+-- Table DIRECCION
+
+CREATE TABLE [DIRECCION]
+(
+ [idDireccion] Int NOT NULL,
+ [ciudad] Varchar(20) NOT NULL,
+ [municipio] VarChar(20) NOT NULL,
+ [localidad] VarChar(20) NOT NULL
+ 
+)
+go
+
+-- Add keys for table DIRECCION
+
+ALTER TABLE [DIRECCION] ADD CONSTRAINT [Key3] PRIMARY KEY ([idDireccion])
 go
 
 -- Table RECORDACADEMICO
@@ -89,11 +107,11 @@ go
 CREATE TABLE [ACTIVIDAD]
 (
  [idActividad] Int IDENTITY(1,1),
- [idMateria] Int NOT NULL,
- [expediente] Int NOT NULL,
+ [nombre] VarChar(50) NOT NULL,
  [horaInicio] DateTime NOT NULL,
  [horaFin] DateTime NOT NULL,
- [nombre] VarChar(50) NULL,
+ [expediente] Int NOT NULL,
+ [idMateria] Int NULL,
  [seccion] VarChar(10) NULL,
  [periodo] VarChar(10) NULL
 )
@@ -119,6 +137,9 @@ ALTER TABLE [REQUISITO] ADD CONSTRAINT [Key6] PRIMARY KEY ([idMateriaPadre],[idM
 go
 
 -- Create relationships section ------------------------------------------------- 
+
+ALTER TABLE [ALUMNO] ADD CONSTRAINT [Direccion] FOREIGN KEY ([idDireccion]) REFERENCES [DIRECCION] ([idDireccion])
+go
 
 ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [MateriaRecord] FOREIGN KEY ([idMateria]) REFERENCES [MATERIA] ([idMateria])
 go
