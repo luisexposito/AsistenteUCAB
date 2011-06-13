@@ -8,7 +8,9 @@
         
         <script src="/Scripts/dhtmlxscheduler.js" type="text/javascript"></script>
 	    <link href="/Scripts/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
-	    <div style='width:900px; height:500px;'>
+	    
+        
+        <div style='width:900px; height:500px;'>
 		    <div id="scheduler_here" class="dhx_cal_container" style=' height:100%;'>
 			    <div class="dhx_cal_navline">
 				    <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -25,10 +27,12 @@
 			    </div>		
 		    </div>
         </div>
+
         <script type="text/javascript">
             function init() {
                 scheduler.config.xml_date = "%m/%d/%Y %H:%i";
-                scheduler.init("scheduler_here", new Date(2010, 6, 1), "month");
+                var date = new Date();
+                scheduler.init("scheduler_here", new Date(date.getFullYear(), date.getMonth(), date.getDay()), "month");
                 scheduler.load("/Actividad/Data");
 
                 var dp = new dataProcessor("/Actividad/Save");
