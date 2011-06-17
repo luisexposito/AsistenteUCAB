@@ -5,79 +5,70 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+    
     <h2>Gestion de Actividades</h2>
 
+    <div id="content">
+        <div id="wrapper" align="center">
+            <div id="steps">
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
 
-        <fieldset>
+        <fieldset class="step">
             <legend>Crear nueva Actividad</legend>
             
-            
-            <div class="editor-label">
+            <p>
                 <%: Html.Label("Actividad") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nombre) %>
+  
+                <%: Html.TextBoxFor(model => model.Nombre, new { placeholder = "LAVAR LA ROPA" })%>
                 <%: Html.ValidationMessageFor(model => model.Nombre) %>
-            </div>
+            </p>
 
-            <div class="editor-label">
+            <p>
                 <%: Html.Label("Materia")%>
-            </div>
-            <div class="editor-field">
                 <%: Html.DropDownList("Materia.Nombre")%>
                 <%: Html.ValidationMessage("Materia.Nombre", "*")%>
-            </div>
+            </p>
 
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.Expediente) %>
-            </div>
-            <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Expediente) %>
                 <%: Html.ValidationMessageFor(model => model.Expediente) %>
-            </div>
+            </p>
             
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.HoraInicio) %>
-            </div>
-            <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.HoraInicio) %>
                 <%: Html.ValidationMessageFor(model => model.HoraInicio) %>
-            </div>
+            </p>
             
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.HoraFin) %>
-            </div>
-            <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.HoraFin) %>
                 <%: Html.ValidationMessageFor(model => model.HoraFin) %>
-            </div>
+            </p>
 
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.Seccion) %>
-            </div>
-            <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Seccion) %>
                 <%: Html.ValidationMessageFor(model => model.Seccion) %>
-            </div>
+            </p>
 
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.Periodo) %>
-            </div>
-            <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Periodo) %>
                 <%: Html.ValidationMessageFor(model => model.Periodo) %>
-            </div>
+            </p>
             
-             <div class="editor-label">
-                <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
-            </div>
+             <p class="submit">
+                <button type="submit" id="registerButton"> Aceptar </button>
+            </p>
         </fieldset>
 
     <% } %>
-
+    </div>
+    </div>
+    </div>
     <br />
         <table>
             <td><a title="Actividades" href="<%=Url.Action("Index")%>">
