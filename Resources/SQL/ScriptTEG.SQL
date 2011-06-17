@@ -49,7 +49,7 @@ go
 
 CREATE TABLE [ALUMNO]
 (
- [expediente] Int NOT NULL,
+ [expediente] Int IDENTITY(1,1),
  [cedula] VarChar(10) NOT NULL,
  [username] VarChar(25) NOT NULL UNIQUE NONCLUSTERED,
  [nombre] VarChar(20) NOT NULL,
@@ -71,7 +71,7 @@ go
 
 CREATE TABLE [DIRECCION]
 (
- [idDireccion] Int NOT NULL,
+ [idDireccion] Int IDENTITY(1,1),
  [ciudad] Varchar(20) NOT NULL,
  [municipio] VarChar(20) NOT NULL,
  [localidad] VarChar(20) NOT NULL
@@ -138,7 +138,7 @@ go
 
 -- Create relationships section ------------------------------------------------- 
 
-ALTER TABLE [ALUMNO] ADD CONSTRAINT [Direccion] FOREIGN KEY ([idDireccion]) REFERENCES [DIRECCION] ([idDireccion])
+ALTER TABLE [ALUMNO] ADD CONSTRAINT [DireccionAlumno] FOREIGN KEY ([idDireccion]) REFERENCES [DIRECCION] ([idDireccion])
 go
 
 ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [MateriaRecord] FOREIGN KEY ([idMateria]) REFERENCES [MATERIA] ([idMateria])

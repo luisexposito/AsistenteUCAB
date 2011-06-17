@@ -4,12 +4,14 @@
 		<id name="IdActividad" access="property" column="`idActividad`">
 			<generator class="native" />
 		</id>
-		<property name="Expediente" column="`expediente`" />
+    <property name="Nombre" column="`nombre`" length="50" />
 		<property name="HoraFin" column="`horaFin`" />
 		<property name="HoraInicio" column="`horaInicio`" />
-		<property name="IdMateria" column="`idMateria`" />
-    <property name="Nombre" column="`nombre`" length="50" />
+    <property name="Expediente" column="`expediente`" />
+    <property name="IdMateria" column="`idMateria`" />
     <property name="Seccion" column="`seccion`" length="10" />
 		<property name="Periodo" column="`periodo`" length="10" />
+    
+    
 	</class>
 </hibernate-mapping>

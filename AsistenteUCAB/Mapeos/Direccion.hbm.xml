@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Direccion" lazy="true" table="`DIRECCION`" schema="`dbo`">
+		<id name="IdDireccion" access="property" column="`idDireccion`">
+			<generator class="assigned" />
+		</id>
+    <property name="Ciudad" column="`ciudad`" length="20" />
+    <property name="Municipio" column="`municipio`" length="20" />
+    <property name="Localidad" column="`localidad`" length="20" />
+	</class>
+</hibernate-mapping>
