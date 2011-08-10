@@ -6,8 +6,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Gestion de Materias</h2>
-    <div align="right">
+    <div id="content">
+        <h1>Gestion de Materias</h1>
+    </div>
+     <div style=" margin:10px auto; float:left; width:500px; position:relative; height:100%;">
         <table>
             <td><a title="Agregar Materia" href="<%=Url.Action("Create", "Materium")%>">
                 <img src="<%=Url.Content("~/Content/agregar.png")%>" height="25px" width="25px" /></a></td>

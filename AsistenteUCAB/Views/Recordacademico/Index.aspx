@@ -6,33 +6,26 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Gestion de Records Academicos</h2>
-    <div align="right">
-        <table>
-            <td><a title="Nueva Entrada al Record Academico" href="<%=Url.Action("Create", "Materium")%>">
-                <img src="<%=Url.Content("~/Content/agregar.png")%>" height="25px" width="25px" /></a></td>
-            <td><%:Html.ActionLink("Nueva Entrada al Record Academico", "Create")%></td>
-        </table>
+    <div id="content">
+        <h1>Mi Record Academico</h1>
     </div>
+    <div id="content2">
+        <div id="wrapper2" align="center">
+        <div id="steps2">
+        <% using (Html.BeginForm()) {%>
+            <fieldset class="step2">
+                <legend>No encuentras una materia? Buscala por su nombre:</legend>
+                <p>
+                    <%: Html.Label("Nombre:") %>
+                    <%= Html.TextBox("record", null, new { @class = "text-box", AUTOCOMPLETE = "OFF" })%>
+                </p>
+                <button type="submit" id="registerButton"> Buscar </button>
+            </fieldset>
 
-    <%
-        using (Html.BeginForm())
-        {%>
-        <fieldset>
-        <legend>Buscar Record: </legend>
-            
-            <div class="editor-label">
-                <label for="Nombre">Nombre:</label>
-            </div>
-            <div class="editor-field">
-            <%=Html.TextBox("nombre", null, new {@class = "text-box"})%>
-            </div>
-            <div class="editor-label">
-                <input type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" value="Buscar"/>
-            </div>
-         </fieldset>
-     <%
-        }
+        <% } %>
+        </div>
+        </div>
+        <%
          if (Model.Count() != 0)
          { %>
     <table align="center">
@@ -94,7 +87,15 @@
              }%>
 
     </table>
+    
     <%
          }%>
+         </div>
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(document).ready(function () {
+            jQuery("input#record").autocomplete('<%= Url.Action("Find", "RecordAcademico") %>');
+        }); 
+    </script>
 </asp:Content>
 

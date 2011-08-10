@@ -1,8 +1,8 @@
-$(function() {
+jQuery(function() {
 	/*
 	number of fieldsets
 	*/
-	var fieldsetCount = $('#formElem').children().length;
+	var fieldsetCount = jQuery('#formElem').children().length;
 	
 	/*
 	current position of fieldset / navigation link
@@ -15,29 +15,29 @@ $(function() {
 	*/
 	var stepsWidth	= 0;
     var widths 		= new Array();
-	$('#steps .step').each(function(i){
-        var $step 		= $(this);
+	jQuery('#steps .step').each(function(i){
+        var $step 		= jQuery(this);
 		widths[i]  		= stepsWidth;
         stepsWidth	 	+= $step.width();
     });
-	$('#steps').width(stepsWidth);
+	jQuery('#steps').width(stepsWidth);
 	
 	/*
 	to avoid problems in IE, focus the first input of the form
 	*/
-	$('#formElem').children(':first').find(':input:first').focus();	
+	jQuery('#formElem').children(':first').find(':input:first').focus();	
 	
 	/*
 	show the navigation bar
 	*/
-	$('#navigation').show();
+	jQuery('#navigation').show();
 	
 	/*
 	when clicking on a navigation link 
 	the form slides to the corresponding fieldset
 	*/
-    $('#navigation a').bind('click',function(e){
-		var $this	= $(this);
+    jQuery('#navigation a').bind('click',function(e){
+		var $this	= jQuery(this);
 		var prev	= current;
 		$this.closest('ul').find('li').removeClass('selected');
         $this.parent().addClass('selected');
@@ -56,14 +56,14 @@ $(function() {
 		all the fieldsets, otherwise we validate the previous one
 		before the form slided
 		*/
-        $('#steps').stop().animate({
+        jQuery('#steps').stop().animate({
             marginLeft: '-' + widths[current-1] + 'px'
         },500,function(){
 			if(current == fieldsetCount)
 				validateSteps();
 			else
 				validateStep(prev);
-			$('#formElem').children(':nth-child('+ parseInt(current) +')').find(':input:first').focus();	
+			jQuery('#formElem').children(':nth-child('+ parseInt(current) +')').find(':input:first').focus();	
 		});
         e.preventDefault();
     });
@@ -72,13 +72,13 @@ $(function() {
 	clicking on the tab (on the last input of each fieldset), makes the form
 	slide to the next step
 	*/
-	$('#formElem > fieldset').each(function(){
-		var $fieldset = $(this);
+	jQuery('#formElem > fieldset').each(function(){
+		var $fieldset = jQuery(this);
 		$fieldset.children(':last').find(':input').keydown(function(e){
 			if (e.which == 9){
-				$('#navigation li:nth-child(' + (parseInt(current)+1) + ') a').click();
+				jQuery('#navigation li:nth-child(' + (parseInt(current)+1) + ') a').click();
 				/* force the blur for validation */
-				$(this).blur();
+				jQuery(this).blur();
 				e.preventDefault();
 			}
 		});
@@ -86,7 +86,7 @@ $(function() {
 	
 	/*
 	validates errors on all the fieldsets
-	records if the Form has errors in $('#formElem').data()
+	records if the Form has errors in jQuery('#formElem').data()
 	*/
 	function validateSteps(){
 		var FormErrors = false;
@@ -95,7 +95,7 @@ $(function() {
 			if(error == -1)
 				FormErrors = true;
 		}
-		$('#formElem').data('errors',FormErrors);	
+		jQuery('#formElem').data('errors',FormErrors);	
 	}
 	
 	/*
@@ -107,8 +107,8 @@ $(function() {
 		
 		var error = 1;
 		var hasError = false;
-		$('#formElem').children(':nth-child('+ parseInt(step) +')').find(':input:not(button)').each(function(){
-			var $this 		= $(this);
+		jQuery('#formElem').children(':nth-child('+ parseInt(step) +')').find(':input:not(button)').each(function(){
+			var $this 		= jQuery(this);
 			var valueLength = jQuery.trim($this.val()).length;
 			
 			if(valueLength == ''){
@@ -118,7 +118,7 @@ $(function() {
 			else
 				$this.css('background-color','#FFFFFF');	
 		});
-		var $link = $('#navigation li:nth-child(' + parseInt(step) + ') a');
+		var $link = jQuery('#navigation li:nth-child(' + parseInt(step) + ') a');
 		$link.parent().find('.error,.checked').remove();
 		
 		var valclass = 'checked';
@@ -126,7 +126,7 @@ $(function() {
 			error = -1;
 			valclass = 'error';
 		}
-		$('<span class="'+valclass+'"></span>').insertAfter($link);
+		jQuery('<span class="'+valclass+'"></span>').insertAfter($link);
 		
 		return error;
 	}
@@ -134,8 +134,8 @@ $(function() {
 	/*
 	if there are errors don't allow the user to submit
 	*/
-	$('#registerButton').bind('click',function(){
-		if($('#formElem').data('errors')){
+	jQuery('#registerButton').bind('click',function(){
+		if(jQuery('#formElem').data('errors')){
 			alert('Please correct the errors in the Form');
 			return false;
 		}	

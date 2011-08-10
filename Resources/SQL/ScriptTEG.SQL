@@ -1,10 +1,3 @@
-/*
-Created: 17/03/2009
-Modified: 22/03/2009
-Model: MS SQL Server 2008
-Database: MS SQL Server 2008
-*/
-
 USE MASTER 
 GO 
 
@@ -19,110 +12,112 @@ GO
 
 PRINT 'La base de datos: AsistenteUCAB ha sido creada con exito. Gracias, APLE Team.' 
 GO 
+GO 
 
 USE AsistenteUCAB 
 GO 
-
 -- Create tables section -------------------------------------------------
 
--- Table MATERIA
+-- Table DefaultSchema.MATERIA
 
 CREATE TABLE [MATERIA]
 (
- [idMateria] Int IDENTITY(1,1),
- [nombre] VarChar(50) NOT NULL,
+ [idMateria] Int IDENTITY(1,1) NOT NULL,
+ [nombre] Varchar(50) NOT NULL,
  [creditos] Int NOT NULL,
  [periodo] Int NOT NULL,
- [descripcion] VarChar(100) NULL,
+ [descripcion] Varchar(100) NULL,
  [horasTeoria] Int NULL,
  [horasPractica] Int NULL,
  [horasLab] Int NULL
 )
 go
 
--- Add keys for table MATERIA
+-- Add keys for table DefaultSchema.MATERIA
 
 ALTER TABLE [MATERIA] ADD CONSTRAINT [Key1] PRIMARY KEY CLUSTERED ([idMateria])
 go
 
--- Table ALUMNO
+-- Table DefaultSchema.ALUMNO
 
 CREATE TABLE [ALUMNO]
 (
- [expediente] Int IDENTITY(1,1),
- [cedula] VarChar(10) NOT NULL,
- [username] VarChar(25) NOT NULL UNIQUE NONCLUSTERED,
- [nombre] VarChar(20) NOT NULL,
- [apellido] VarChar(20) NOT NULL,
- [sexo] VarChar(1) NOT NULL,
- [correoUcab] VarChar(50) NOT NULL,
- [correoAlternativo] VarChar(50) NULL,
- [idDireccion] Int NOT NULL,
- [creationDate] DateTime NOT NULL
+ [expediente] Int NOT NULL,
+ [cedula] Varchar(10) NOT NULL,
+ [username] Varchar(25) NOT NULL,
+ [nombre] Varchar(20) NOT NULL,
+ [apellido] Varchar(20) NOT NULL,
+ [sexo] Varchar(1) NOT NULL,
+ [correoUcab] Varchar(50) NOT NULL,
+ [creationDate] Datetime NOT NULL,
+ [correoAlternativo] Varchar(50) NULL,
+ [idDireccion] Int NOT NULL
 )
 go
 
--- Add keys for table ALUMNO
+-- Add keys for table DefaultSchema.ALUMNO
 
 ALTER TABLE [ALUMNO] ADD CONSTRAINT [Key2] PRIMARY KEY ([expediente])
 go
 
--- Table DIRECCION
+ALTER TABLE [ALUMNO] ADD CONSTRAINT [uq_ALUMNO_username] UNIQUE ([username])
+go
+
+-- Table DefaultSchema.DIRECCION
 
 CREATE TABLE [DIRECCION]
 (
- [idDireccion] Int IDENTITY(1,1),
+ [idDireccion] Int IDENTITY(1,1) NOT NULL,
  [ciudad] Varchar(20) NOT NULL,
- [municipio] VarChar(20) NOT NULL,
- [localidad] VarChar(20) NOT NULL
- 
+ [municipio] Varchar(20) NOT NULL,
+ [localidad] Varchar(20) NOT NULL
 )
 go
 
--- Add keys for table DIRECCION
+-- Add keys for table DefaultSchema.DIRECCION
 
-ALTER TABLE [DIRECCION] ADD CONSTRAINT [Key3] PRIMARY KEY ([idDireccion])
+ALTER TABLE [DIRECCION] ADD CONSTRAINT [Key3] PRIMARY KEY CLUSTERED ([idDireccion])
 go
 
--- Table RECORDACADEMICO
+-- Table DefaultSchema.RECORDACADEMICO
 
 CREATE TABLE [RECORDACADEMICO]
 (
- [idRecord] Int IDENTITY(1,1),
+ [idRecord] Int IDENTITY(1,1) NOT NULL,
  [idMateria] Int NOT NULL,
  [expediente] Int NOT NULL,
  [nota] Int NOT NULL,
- [periodoAcademico] VarChar(10) NOT NULL,
- [reparacion] VarChar(2) NOT NULL
+ [periodoAcademico] Varchar(10) NOT NULL,
+ [reparacion] Varchar(2) NOT NULL
 )
 go
 
--- Add keys for table RECORDACADEMICO
+-- Add keys for table DefaultSchema.RECORDACADEMICO
 
-ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [Key4] PRIMARY KEY CLUSTERED ([idRecord])
+ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [Key4] PRIMARY KEY  CLUSTERED ([idRecord])
 go
 
--- Table ACTIVIDAD
+-- Table DefaultSchema.ACTIVIDAD
 
 CREATE TABLE [ACTIVIDAD]
 (
- [idActividad] Int IDENTITY(1,1),
- [nombre] VarChar(50) NOT NULL,
- [horaInicio] DateTime NOT NULL,
- [horaFin] DateTime NOT NULL,
- [expediente] Int NOT NULL,
- [idMateria] Int NULL,
- [seccion] VarChar(10) NULL,
- [periodo] VarChar(10) NULL
+ [idActividad] Int IDENTITY(1,1) NOT NULL,
+ [nombre] Varchar(50) NOT NULL,
+ [horaInicio] Datetime NOT NULL,
+ [horaFin] Datetime NOT NULL,
+ [seccion] Varchar(10) NULL,
+ [periodo] Varchar(10) NULL,
+ [expediente] Int NULL,
+ [idMateria] Int NULL
 )
 go
 
--- Add keys for table ACTIVIDAD
+-- Add keys for table DefaultSchema.ACTIVIDAD
 
-ALTER TABLE [ACTIVIDAD] ADD CONSTRAINT [Key5] PRIMARY KEY CLUSTERED ([idActividad])
+ALTER TABLE [ACTIVIDAD] ADD CONSTRAINT [Key5] PRIMARY KEY  CLUSTERED ([idActividad])
 go
 
--- Table REQUISITO
+-- Table DefaultSchema.REQUISITO
 
 CREATE TABLE [REQUISITO]
 (
@@ -131,33 +126,57 @@ CREATE TABLE [REQUISITO]
 )
 go
 
--- Add keys for table REQUISITO
+-- Add keys for table DefaultSchema.REQUISITO
 
 ALTER TABLE [REQUISITO] ADD CONSTRAINT [Key6] PRIMARY KEY ([idMateriaPadre],[idMateriaHijo])
 go
 
+-- Table CRONOGRAMA
+
+CREATE TABLE [CRONOGRAMA]
+(
+ [expediente] Int NOT NULL,
+ [idActividad] Int NOT NULL
+)
+go
+
+-- Add keys for table CRONOGRAMA
+
+ALTER TABLE [CRONOGRAMA] ADD CONSTRAINT [Key7] PRIMARY KEY ([expediente],[idActividad])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
-ALTER TABLE [ALUMNO] ADD CONSTRAINT [DireccionAlumno] FOREIGN KEY ([idDireccion]) REFERENCES [DIRECCION] ([idDireccion])
+ALTER TABLE [ALUMNO] ADD CONSTRAINT [DireccionAlumno] FOREIGN KEY ([idDireccion]) REFERENCES [DIRECCION] ([idDireccion]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [MateriaRecord] FOREIGN KEY ([idMateria]) REFERENCES [MATERIA] ([idMateria])
+ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [MateriaRecord] FOREIGN KEY ([idMateria]) REFERENCES [MATERIA] ([idMateria]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [AlumnoRecord] FOREIGN KEY ([expediente]) REFERENCES [ALUMNO] ([expediente])
+ALTER TABLE [RECORDACADEMICO] ADD CONSTRAINT [AlumnoRecord] FOREIGN KEY ([expediente]) REFERENCES [ALUMNO] ([expediente]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
-ALTER TABLE [ACTIVIDAD] ADD CONSTRAINT [MateriaActividad] FOREIGN KEY ([idMateria]) REFERENCES [MATERIA] ([idMateria])
+ALTER TABLE [ACTIVIDAD] ADD CONSTRAINT [MateriaActividad] FOREIGN KEY ([idMateria]) REFERENCES [MATERIA] ([idMateria]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [REQUISITO] ADD CONSTRAINT [MateriaRequisitoPadre] FOREIGN KEY ([idMateriaPadre]) REFERENCES [MATERIA] ([idMateria]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [REQUISITO] ADD CONSTRAINT [MateriaRequisitoHijo] FOREIGN KEY ([idMateriaHijo]) REFERENCES [MATERIA] ([idMateria]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [CRONOGRAMA] ADD CONSTRAINT [AlumnoCronograma] FOREIGN KEY ([expediente]) REFERENCES [ALUMNO] ([expediente])
+go
+
+ALTER TABLE [CRONOGRAMA] ADD CONSTRAINT [ActividadCronograma] FOREIGN KEY ([idActividad]) REFERENCES [ACTIVIDAD] ([idActividad])
 go
 
 ALTER TABLE [ACTIVIDAD] ADD CONSTRAINT [AlumnoActividad] FOREIGN KEY ([expediente]) REFERENCES [ALUMNO] ([expediente])
 go
 
-ALTER TABLE [REQUISITO] ADD CONSTRAINT [MateriaRequisitoPadre] FOREIGN KEY ([idMateriaPadre]) REFERENCES [MATERIA] ([idMateria])
-go
 
-ALTER TABLE [REQUISITO] ADD CONSTRAINT [MateriaRequisitoHijo] FOREIGN KEY ([idMateriaHijo]) REFERENCES [MATERIA] ([idMateria])
-go
+
+
 
 
 

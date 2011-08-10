@@ -5,42 +5,39 @@
 </asp:Content>
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Iniciar sesión</h2>
-    <p>
-        Especifique su nombre de usuario y contraseña. <%: Html.ActionLink("Registrarse", "Register") %> si no tiene una cuenta.
-    </p>
+    
+    <div id="content">
+        <h1>Iniciar Sesion</h1>
+    </div>
+    <div id="content2">
+    <%: Html.ValidationSummary(true) %>
+        <div id="wrapper" align="center">
+            <div id="steps">
+    <% using (Html.BeginForm()) {%>
+        
+        <fieldset class="step">
+            <legend>Si no estas registrado en la red, tu invitamos a hacerlo: <%: Html.ActionLink("Registrate!", "Register") %></legend>
+            
+            <%: Html.ValidationMessage("NCIncorrecto")%>
+            <p>
+                <%: Html.LabelFor(model => model.UserName) %>
+                <%: Html.TextBoxFor(model => model.UserName)%>
+                <%: Html.ValidationMessageFor(model => model.UserName, "*")%>
+            </p>
+            
+            <p>
+                <%: Html.LabelFor(model => model.Password) %>
+                <%: Html.PasswordFor(model => model.Password)%>
+                <%: Html.ValidationMessageFor(model => model.Password, "*")%>
+            </p>
 
-    <% using (Html.BeginForm()) { %>
-        <%: Html.ValidationSummary(true, "No se ha iniciado la sesión. Corrija los errores e inténtelo de nuevo.") %>
-        <div>
-            <fieldset>
-                <legend>Información de cuenta</legend>
-                
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.UserName) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.UserName) %>
-                    <%: Html.ValidationMessageFor(m => m.UserName) %>
-                </div>
-                
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.Password) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.PasswordFor(m => m.Password) %>
-                    <%: Html.ValidationMessageFor(m => m.Password) %>
-                </div>
-                
-                <div class="editor-label">
-                    <%: Html.CheckBoxFor(m => m.RememberMe) %>
-                    <%: Html.LabelFor(m => m.RememberMe) %>
-                </div>
-                
-                <p>
-                    <input type="submit" value="Iniciar sesión" />
-                </p>
-            </fieldset>
-        </div>
+             <p class="submit">
+                <button type="submit" id="registerButton"> Iniciar sesion </button>
+            </p>
+        </fieldset>
+
     <% } %>
+    </div>
+    </div>
+    </div>
 </asp:Content>

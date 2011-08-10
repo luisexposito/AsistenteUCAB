@@ -12,7 +12,5 @@ VINOTINTO ROSADO------
 Oscuro
 #C7075A
 
-#5877C5
-
 #FF1179
 Claro

@@ -6,8 +6,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Gestion de Alumnos</h2>
-    <div align="right">
+    <div id="content">
+        <h1>Gestion de Alumnos</h1>
+    </div>
+     <div style=" margin:10px auto; float:left; width:500px; position:relative; height:100%;">
         <table>
             <td><a title="Agregar Alumno" href="<%=Url.Action("Create","Alumno")%>">
                 <img src="<%=Url.Content("~/Content/agregar.png")%>" height="25px" width="25px" /></a></td>

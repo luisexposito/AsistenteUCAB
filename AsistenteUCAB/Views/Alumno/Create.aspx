@@ -15,51 +15,66 @@
             <legend>Agregar nuevo alumno:</legend>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Expediente) %>
+                <%: Html.Label("Alumno.Expediente") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Expediente) %>
-                <%: Html.ValidationMessageFor(model => model.Expediente) %>
+                <%: Html.TextBox("Alumno.Expediente")%>
+                <%: Html.ValidationMessage("Alumno.Expediente")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Nombre) %>
+                <%: Html.Label("Alumno.Nombre") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nombre) %>
-                <%: Html.ValidationMessageFor(model => model.Nombre) %>
+                <%: Html.TextBox("Alumno.Nombre")%>
+                <%: Html.ValidationMessage("Alumno.Nombre")%>
             </div>
 
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Apellido) %>
+                <%: Html.Label("Alumno.Apellido")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Apellido) %>
-                <%: Html.ValidationMessageFor(model => model.Apellido) %>
+                <%: Html.TextBox("Alumno.Apellido")%>
+                <%: Html.ValidationMessage("Alumno.Apellido")%>
+            </div>
+
+            <div class="editor-label">
+                <%: Html.Label("Alumno.Sexo")%>
+            </div>
+            <div class="editor-field">
+                <%: Html.DropDownList("Alumno.Sexo")%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Cedula) %>
+                <%: Html.Label("Alumno.Username")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Cedula) %>
-                <%: Html.ValidationMessageFor(model => model.Cedula) %>
+                <%: Html.TextBox("Alumno.Username")%>
+                <%: Html.ValidationMessage("Alumno.Username")%>
+            </div>
+            
+            <div class="editor-label">
+                <%: Html.Label("Alumno.Cedula")%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBox("Alumno.Cedula")%>
+                <%: Html.ValidationMessage("Alumno.Cedula")%>
             </div>
 
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.CorreoUcab) %>
+                <%: Html.Label("Alumno.CorreoUcab")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.CorreoUcab) %>
-                <%: Html.ValidationMessageFor(model => model.CorreoUcab) %>
+                <%: Html.TextBox("Alumno.CorreoUcab")%>
+                <%: Html.ValidationMessage("Alumno.CorreoUcab")%>
             </div>
 
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.CorreoAlternativo) %>
+                <%: Html.Label("Alumno.CorreoAlternativo")%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.CorreoAlternativo) %>
-                <%: Html.ValidationMessageFor(model => model.CorreoAlternativo) %>
+                <%: Html.TextBox("Alumno.CorreoAlternativo")%>
+                <%: Html.ValidationMessage("Alumno.CorreoAlternativo")%>
             </div>
             
             <div class="editor-label">

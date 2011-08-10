@@ -1,86 +1,67 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<AsistenteUCAB.Modelos.Actividad>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Edit
+	Editar la Actividad
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Gestion de Actividades</h2>
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(function () {
+            jQuery("#HoraFin").datetimepicker();
+            jQuery("#HoraInicio").datetimepicker();
+        });
+    </script>
 
+    <div id="content">        <h1>Gestion de Actividades</h1>
+    </div>
+    <div id="content2">
+    <%: Html.ValidationSummary(true) %>
+        <div id="wrapper" align="center">
+            <div id="steps">
     <% using (Html.BeginForm()) {%>
-        <%: Html.ValidationSummary(true) %>
         
-        <fieldset>
-            <legend>Editar Actividad:</legend>
-            
-              
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Nombre) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Nombre) %>
+        <fieldset class="step">
+            <legend>Edita actividades personales.</legend>
+            <%: Html.ValidationMessage("FechaInvalida") %>
+            <p>
+                <%: Html.Label("Actividad") %>
+  
+                <%: Html.TextBoxFor(model => model.Nombre, new { placeholder = "GYM, Practica de Tennis, etc.", AUTOCOMPLETE="OFF"})%>
                 <%: Html.ValidationMessageFor(model => model.Nombre) %>
-            </div>
-             
-            <div class="editor-label">
-                <%: Html.Label("Materia")%>
-            </div>
-            <div class="editor-field">
-                <%: Html.DisplayFor(model => model.Materia.Nombre)%>
-                <%: Html.ValidationMessage("Materia.Nombre", "*")%>
-            </div>
+            </p>
 
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.Expediente) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.DisplayFor(model => model.Expediente) %>
+                <%: Html.TextBoxFor(model => model.Expediente) %>
                 <%: Html.ValidationMessageFor(model => model.Expediente) %>
-            </div>
+            </p>
             
-            <div class="editor-label">
+            <p>
                 <%: Html.LabelFor(model => model.HoraInicio) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.EditorFor(model => Model.HoraInicio) %>
+                <%: Html.TextBoxFor(model => model.HoraInicio, new { AUTOCOMPLETE = "OFF" })%>
                 <%: Html.ValidationMessageFor(model => model.HoraInicio) %>
-            </div>
-
-             <div class="editor-label">
-                <%: Html.LabelFor(model => model.HoraFin)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.EditorFor(model => model.HoraFin)%>
-                <%: Html.ValidationMessageFor(model => model.HoraFin) %>
-            </div>
-
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Seccion) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Seccion) %>
-                <%: Html.ValidationMessageFor(model => model.Seccion) %>
-            </div>
-
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Periodo) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Periodo) %>
-                <%: Html.ValidationMessageFor(model => model.Periodo) %>
-            </div>
+            </p>
             
+            <p>
+                <%: Html.LabelFor(model => model.HoraFin) %>
+                <%: Html.TextBoxFor(model => model.HoraFin, new { AUTOCOMPLETE = "OFF" })%>
+                <%: Html.ValidationMessageFor(model => model.HoraFin) %>
+            </p>
             <input type="hidden" name="IdActividad" value="<%: Model.IdActividad %>" />
 	        <input type="hidden" name="Expediente" value="<%: Model.Expediente %>" />            
-	        <input type="hidden" name="IdMateria" value="<%: Model.IdMateria %>" />            
-	        
-            <div class="editor-label">
-                <input type="submit" value="Aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover"/>
-            </div>
+	        <input type="hidden" name="IdMateria" value="<%: Model.IdMateria %>" />
+ 
+            <p class="submit">
+                <button type="submit" id="registerButton"> Aceptar </button>
+            </p>
         </fieldset>
 
     <% } %>
+    </div>
+    </div>
+    </div>
     <br />
         <table>
             <td><a title="Activiades" href="<%=Url.Action("Index")%>">
@@ -89,4 +70,5 @@
         </table>
 
 </asp:Content>
+
 

@@ -5,29 +5,31 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <h2>Gestion de Actividades</h2>
 
-    <div id="content">
+<script type="text/javascript">
+    jQuery.noConflict();
+    jQuery(function () {
+        jQuery("#HoraFin").datetimepicker();
+        jQuery("#HoraInicio").datetimepicker();
+    });
+ </script>
+
+    <div id="content">        <h1>Gestion de Actividades</h1>
+    </div>
+    <div id="content2">
+    <%: Html.ValidationSummary(true) %>
         <div id="wrapper" align="center">
             <div id="steps">
     <% using (Html.BeginForm()) {%>
-        <%: Html.ValidationSummary(true) %>
-
+        
         <fieldset class="step">
-            <legend>Crear nueva Actividad</legend>
-            
+            <legend>Persolaniza tu horario y agrega tus actividades personales.</legend>
+            <%: Html.ValidationMessage("FechaInvalida") %>
             <p>
                 <%: Html.Label("Actividad") %>
   
-                <%: Html.TextBoxFor(model => model.Nombre, new { placeholder = "LAVAR LA ROPA" })%>
+                <%: Html.TextBoxFor(model => model.Nombre, new { placeholder = "GYM, Practica de Tennis, etc." })%>
                 <%: Html.ValidationMessageFor(model => model.Nombre) %>
-            </p>
-
-            <p>
-                <%: Html.Label("Materia")%>
-                <%: Html.DropDownList("Materia.Nombre")%>
-                <%: Html.ValidationMessage("Materia.Nombre", "*")%>
             </p>
 
             <p>
@@ -48,18 +50,6 @@
                 <%: Html.ValidationMessageFor(model => model.HoraFin) %>
             </p>
 
-            <p>
-                <%: Html.LabelFor(model => model.Seccion) %>
-                <%: Html.TextBoxFor(model => model.Seccion) %>
-                <%: Html.ValidationMessageFor(model => model.Seccion) %>
-            </p>
-
-            <p>
-                <%: Html.LabelFor(model => model.Periodo) %>
-                <%: Html.TextBoxFor(model => model.Periodo) %>
-                <%: Html.ValidationMessageFor(model => model.Periodo) %>
-            </p>
-            
              <p class="submit">
                 <button type="submit" id="registerButton"> Aceptar </button>
             </p>
