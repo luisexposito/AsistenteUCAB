@@ -7,11 +7,11 @@ using AsistenteUCAB.Modelos;
 
 namespace AsistenteUCAB.Repositorios
 {
-    public class RecordacademicoRepositorio : IRepositorio<Recordacademico>
+    public class DireccionRepositorio : IRepositorio<Direccion>
     {
-        #region IRepositorio<Recordacademico> Members
+        #region IRepositorio<Direccion> Members
 
-        String IRepositorio<Recordacademico>.Save(Recordacademico entity)
+        String IRepositorio<Direccion>.Save(Direccion entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -22,17 +22,15 @@ namespace AsistenteUCAB.Repositorios
                         session.Save(entity);
                         transaction.Commit();
                         return "true";
-                    }
-                    catch (Exception e)
+                    }catch(Exception e)
                     {
                         return e.Message;
                     }
-                    
                 }
             }
         }
 
-        String IRepositorio<Recordacademico>.Update(Recordacademico entity)
+        String IRepositorio<Direccion>.Update(Direccion entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -51,9 +49,10 @@ namespace AsistenteUCAB.Repositorios
                     
                 }
             }
+            
         }
 
-        String IRepositorio<Recordacademico>.Delete(Recordacademico entity)
+        String IRepositorio<Direccion>.Delete(Direccion entity)
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
@@ -73,23 +72,23 @@ namespace AsistenteUCAB.Repositorios
             }
         }
 
-        IList<Recordacademico> IRepositorio<Recordacademico>.GetAll()
+        IList<Direccion> IRepositorio<Direccion>.GetAll()
         {
             using (ISession session = NHibernateHelper.OpenSession())
             {
-                ICriteria criteria = session.CreateCriteria(typeof(Recordacademico));
+                ICriteria criteria = session.CreateCriteria(typeof(Direccion));
 
-                return criteria.List<Recordacademico>();
+                return criteria.List<Direccion>();
             }
         }
 
-        Recordacademico IRepositorio<Recordacademico>.GetById(int? id)
+        Direccion IRepositorio<Direccion>.GetById(int? id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
-                return session.CreateCriteria<Recordacademico>().Add(Restrictions.Eq("IdRecord", id)).UniqueResult<Recordacademico>();
+                return session.CreateCriteria<Direccion>().Add(Restrictions.Eq("IdDireccion", id)).UniqueResult<Direccion>();
         }
 
-        public Recordacademico GetByUniqueAtribute(string uniqueAtribute)
+        public Direccion GetByUniqueAtribute(string uniqueAtribute)
         {
             throw new NotImplementedException();
         }

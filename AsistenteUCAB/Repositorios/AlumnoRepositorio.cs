@@ -82,7 +82,7 @@ namespace AsistenteUCAB.Repositorios
             }
         }
 
-        Alumno IRepositorio<Alumno>.GetById(int id)
+        Alumno IRepositorio<Alumno>.GetById(int? id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<Alumno>().Add(Restrictions.Eq("Expediente", id)).UniqueResult<Alumno>();

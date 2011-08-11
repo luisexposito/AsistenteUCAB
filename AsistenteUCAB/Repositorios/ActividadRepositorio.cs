@@ -85,7 +85,7 @@ namespace AsistenteUCAB.Repositorios
             }
         }
 
-        Actividad IRepositorio<Actividad>.GetById(int id)
+        Actividad IRepositorio<Actividad>.GetById(int? id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<Actividad>().Add(Restrictions.Eq("IdActividad", id)).UniqueResult<Actividad>();

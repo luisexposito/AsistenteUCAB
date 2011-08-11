@@ -83,7 +83,7 @@ namespace AsistenteUCAB.Repositorios
             }
         }
 
-        Requisito IRepositorio<Requisito>.GetById(int id)
+        Requisito IRepositorio<Requisito>.GetById(int? id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<Requisito>().Add(Restrictions.Eq("IdIdMateriaPadre", id)).UniqueResult<Requisito>();

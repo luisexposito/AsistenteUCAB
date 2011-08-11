@@ -23,6 +23,8 @@ namespace AsistenteUCAB.Controllers
 
         protected override void Initialize(RequestContext requestContext)
         {
+            IEnumerable<string> items = new string[] { "Femenino", "Masculino" };
+            ViewData["Alumno.Sexo"] = new SelectList(items);
             if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
             if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
 
@@ -57,7 +59,7 @@ namespace AsistenteUCAB.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+                    ModelState.AddModelError("NCIncorrecto", "El nombre de usuario o la contraseña especificados son incorrectos.");
                 }
             }
 
@@ -110,21 +112,39 @@ namespace AsistenteUCAB.Controllers
 
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(alumno.Username, alumno.Password, alumno.CorreoUcab);
-                IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
-                string resultado = repositorioAlumno.Save(alumno);
+                if (alumno.Password == alumno.ConfirmPassword)
+                {
+                    IRepositorio<Direccion> repositorioDireccion = new DireccionRepositorio();
+                    string flag = repositorioDireccion.Save(alumno.Direccion);
+                    if (flag == "true")
+                    {
+                        alumno.CreationDate = Convert.ToString(DateTime.Today);
+                        alumno.Sexo = alumno.Sexo == "Masculino" ? "M" : "F";
+                        alumno.IdDireccion = alumno.Direccion.IdDireccion;
+                        IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
+                        string resultado = repositorioAlumno.Save(alumno);
 
-                if (resultado.Equals("true"))
-                    if (createStatus == MembershipCreateStatus.Success)
-                    {
-                        FormsService.SignIn(alumno.Username, false /* createPersistentCookie */);
-                        return RedirectToAction("Index", "Home");
+                        if (resultado.Equals("true"))
+                        {
+                            MembershipCreateStatus createStatus = MembershipService.CreateUser(alumno.Username,
+                                                                                           alumno.Password,
+                                                                                           alumno.CorreoUcab);
+                            if (createStatus == MembershipCreateStatus.Success)
+                            {
+                                FormsService.SignIn(alumno.Username, false /* createPersistentCookie */);
+                                return RedirectToAction("Index", "Home");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("passOrUsername", AccountValidation.ErrorCodeToString(createStatus));
+                            }
+                        }
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("contrasenia", "Las contraseñas no coinciden.");
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -180,7 +200,6 @@ namespace AsistenteUCAB.Controllers
             MembershipUser user = Membership.GetUser();
             IRepositorio<Alumno> repositorioAlumno = new AlumnoRepositorio();
             Alumno usuario = repositorioAlumno.GetByUniqueAtribute(User.Identity.Name);
-            usuario.Theme = this.HttpContext.Profile.GetPropertyValue("Theme").ToString();
             usuario.CreationDate = user.CreationDate.ToShortDateString();
             return View(usuario);
         }

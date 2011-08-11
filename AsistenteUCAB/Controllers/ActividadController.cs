@@ -26,12 +26,17 @@ namespace AsistenteUCAB.Controllers
 
     public class ActividadController : Controller
     {
+        private IRepositorio<Actividad> myRepoActividad;
+        private IList<Actividad> listaActividads;
         protected override void Initialize(RequestContext requestContext)
         {
             IRepositorio<Materium> repositorioMateria = new MateriumRepositorio();
             IList<Materium> listaMaterias = repositorioMateria.GetAll();
             IList<String> nombresMaterias = listaMaterias.Select(listaMateria => listaMateria.Nombre).ToList();
             ViewData["Materia.Nombre"] = new SelectList(nombresMaterias);
+
+            myRepoActividad = new ActividadRepositorio();
+            listaActividads = myRepoActividad.GetAll();
             base.Initialize(requestContext);
         }
         //
@@ -39,24 +44,33 @@ namespace AsistenteUCAB.Controllers
 
         public ActionResult Index()
         {
-            IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
-            IList<Actividad> listaActividads = myRepoActividad.GetAll();
-            return View(listaActividads);
+            ViewData["ActividadBuscada"] = null;
+            return View();
+        }
+
+        public ActionResult MisActividades(string nombre)
+        {
+            if (String.IsNullOrEmpty(nombre) || String.IsNullOrWhiteSpace(nombre))
+            {
+                return View(listaActividads.Where(actividad => actividad.IdMateria == null).OrderBy(actividad => actividad.HoraInicio));
+            }
+            return View(listaActividads.Where(actividad => actividad.IdMateria == null && actividad.Nombre == nombre).OrderBy(actividad => actividad.HoraInicio));
+        }
+
+        public ActionResult ActividadesInteligentes(string nombre)
+        {
+            if (String.IsNullOrEmpty(nombre) || String.IsNullOrWhiteSpace(nombre))
+            {
+                return View(listaActividads.Where(actividad => actividad.IdMateria != null).OrderBy(actividad => actividad.HoraInicio));
+            }
+            return View(listaActividads.Where(actividad => actividad.IdMateria != null && actividad.Nombre == nombre).OrderBy(actividad => actividad.HoraInicio));
         }
 
         [HttpPost]
-        public ActionResult Index(HtmlForm form)
+        public ActionResult Index(string actividad)
         {
-            string nombre = Request["actividad"];
-            IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
-            IList<Actividad> todasActividades = myRepoActividad.GetAll();
-            IList<Actividad> listaActividades = new List<Actividad>();
-            foreach (var Actividad in todasActividades)
-            {
-                if (Actividad.Nombre == nombre)
-                    listaActividades.Add(Actividad);
-            }
-            return View(listaActividades);
+            ViewData["ActividadBuscada"] = actividad;
+            return View();
         }
 
         //
@@ -92,6 +106,12 @@ namespace AsistenteUCAB.Controllers
 
             if(ModelState.IsValid)
             {
+                if (Actividad.HoraInicio > Actividad.HoraFin)
+                {
+                    ModelState.AddModelError("FechaInvalida",
+                                             "La fecha/hora de inicio no puede ser mayor a la fecha/hora fin.");
+                    return View(Actividad);
+                }
                 IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
                 String resultado = myRepoActividad.Save(Actividad);
                 
@@ -186,8 +206,8 @@ namespace AsistenteUCAB.Controllers
 
         public ActionResult Data()
         {
-            MyEventsDataContext data = new MyEventsDataContext();
-            return View(data.ACTIVIDAD);
+            IRepositorio<Actividad> myRepoActividad = new ActividadRepositorio();
+            return View(myRepoActividad.GetAll());
         }
 
         public ActionResult Save(ACTIVIDAD changedEvent, FormCollection actionValues)

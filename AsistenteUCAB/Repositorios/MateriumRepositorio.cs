@@ -84,7 +84,7 @@ namespace AsistenteUCAB.Repositorios
             }
         }
 
-        Materium IRepositorio<Materium>.GetById(int id)
+        Materium IRepositorio<Materium>.GetById(int? id)
         {
             using (ISession session = NHibernateHelper.OpenSession())
                 return session.CreateCriteria<Materium>().Add(Restrictions.Eq("IdMateria", id)).UniqueResult<Materium>();

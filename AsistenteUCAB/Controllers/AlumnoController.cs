@@ -14,7 +14,8 @@ namespace AsistenteUCAB.Controllers
     {
         protected override void Initialize(RequestContext requestContext)
         {
-
+            IEnumerable<string> items = new string[] { "Femenino", "Masculino" };
+            ViewData["Sexo"] = new SelectList(items);
             base.Initialize(requestContext);
         }
 
@@ -69,6 +70,11 @@ namespace AsistenteUCAB.Controllers
         {
             if(ModelState.IsValid)
             {
+                Alumno.CreationDate = Convert.ToString(DateTime.Today);
+                if (Alumno.Sexo == "Masculino")
+                    Alumno.Sexo = "M";
+                else
+                    Alumno.Sexo = "F";
                 IRepositorio<Alumno> myRepoAlumno = new AlumnoRepositorio();
                 String resultado = myRepoAlumno.Save(Alumno);
 

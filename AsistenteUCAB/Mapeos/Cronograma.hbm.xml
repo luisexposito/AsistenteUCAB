@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Cronograma" lazy="true" table="`CRONOGRAMA`" schema="`dbo`">
+    <composite-id>
+      <key-property name="Expediente" column="`expediente`" />
+      <key-property name="IdActividad" column="`idActividad`" />
+    </composite-id>
+  </class>
+</hibernate-mapping>

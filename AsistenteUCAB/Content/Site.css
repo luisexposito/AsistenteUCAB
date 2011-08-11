@@ -3,6 +3,10 @@ El color base de esta plantilla es White. Si desea usar
 otro color, empiece por reemplazar todas las instancias de
 White con el nuevo color.
 ----------------------------------------------------------*/
+*{
+    margin:0px;
+    padding:0px;
+}
 BODY
 {
 	background-color: #FFFFFF;
@@ -37,25 +41,11 @@ P, UL
 }
 /*TÃƒÆ’Ã‚ÂTULOS
 ----------------------------------------------------------*/
-H1, H2, H3, H4, H5, H6
+H4, H5, H6
 {
 	font-size: 1.5em;
 	color: #000;
 	font-family: Arial, Helvetica, sans-serif;
-}
-H1
-{
-	font-size: 2em;
-	padding-bottom: 0;
-	margin-bottom: 0;
-}
-H2
-{
-	padding: 0 0 10px;
-}
-H3
-{
-	font-size: 1.2em;
 }
 H4
 {
@@ -176,6 +166,12 @@ DIV.hr
 	margin-right: auto;
 	background: #FFF url(../../Content/footer.png) repeat-x scroll center;
 }
+DIV.hrs
+{
+	height: 1px;
+	width:  600px;
+	background: #FFF url(../../Content/footer.png) repeat-x scroll center;
+}
 A IMG
 {
 	border: 0;
@@ -186,22 +182,7 @@ A IMG
 }
 /*ELEMENTOS DE DISEñO DE FORMULARIOS
 ----------------------------------------------------------*/
-FIELDSET
-{
-	margin: 1em 0;
-	padding: 1em;
-	border: 1px solid #CCC;
-}
-FIELDSET P
-{
-	margin: 2px 12px 10px 10px;
-}
-LEGEND
-{
-	font-size: 1.1em;
-	font-weight: 600;
-	padding: 2px 4px 8px;
-}
+
 INPUT[type="text"]
 {
 	width: 200px;
@@ -218,14 +199,9 @@ INPUT[type="password"]
 }
 /*TABLA
 ----------------------------------------------------------*/
-TABLE
+.tabla
 {
-	margin-left: auto;
-	margin-right: auto;
-}
-TABLE TD
-{
-	padding: 5px;
+    float:left;
 }
 TABLE TH
 {
@@ -285,6 +261,8 @@ DIV#title2
 .field-validation-error
 {
 	color: #FF0000;
+	font-size:14px;	font-weight:bold;    text-shadow:1px 1px 1px #DCDCDC;
+    display: inline-block;
 }
 .field-validation-valid
 {
@@ -2524,7 +2502,9 @@ MARCO PRINCICPAL
 	margin-left:-485px;
 }
 
-	/*FORMULARIO*/
+/*
+FORMULARIO
+*/
 
 #content{
     margin:15px auto;
@@ -2614,7 +2594,7 @@ MARCO PRINCICPAL
     text-shadow:1px 1px 1px #fff;
 }
 span.checked{
-    background:transparent url(../images/checked.png) no-repeat top left;
+    background:transparent url(../../Content/checked.png) no-repeat top left;
     position:absolute;
     top:0px;
     left:1px;
@@ -2622,7 +2602,7 @@ span.checked{
     height:20px;
 }
 span.error{
-    background:transparent url(../images/error.png) no-repeat top left;
+    background:transparent url(../../Content/error.png) no-repeat top left;
     position:absolute;
     top:0px;
     left:1px;
@@ -2637,13 +2617,13 @@ span.error{
     text-align:left;
     background-color:#f0f0f0;
     color:#666;
-    font-size:24px;
+    font-size:14px;
     text-shadow:1px 1px 1px #fff;
     font-weight:bold;
     float:left;
     width:590px;
     padding:5px 0px 5px 10px;
-    margin:10px 0px;
+    margin:10px 0px 10px -10px;
     border-bottom:1px solid #fff;
     border-top:1px solid #d9d9d9;
 }
@@ -2724,4 +2704,213 @@ span.error{
     background:#d8d8d8;
     color:#666;
     text-shadow:1px 1px 1px #fff;
+}
+h1{    color:#ccc;    font-size:20px;    float:right;    text-shadow:1px 1px 1px #fff;}
+h2{    color:#4682B4;    font-size:15px;    float:right;    text-shadow:1px 1px 1px #fff;    margin-bottom: 15px;}
+h3{    color:#4682B4;    font-size:15px;    text-shadow:1px 1px 1px #fff;}
+
+
+span.reference{
+    position:fixed;
+    left:5px;
+    top:5px;
+    font-size:10px;
+    text-shadow:1px 1px 1px #fff;
+}
+span.reference a{
+    color:#555;
+    text-decoration:none;
+	text-transform:uppercase;
+}
+span.reference a:hover{
+    color:#000;
+            
+}
+
+/*
+FORMULARIO PARA BUSCAR
+*/
+#content2{
+    margin:35px auto;
+    text-align:center;
+    width:600px;
+    position:relative;
+    height:100%;
+}#wrapper2
+{
+    margin-bottom:30px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    border:2px solid #fff;
+    background-color:#f9f9f9;
+    width:600px;
+    overflow:hidden;
+}
+#steps2{
+    width:600px;
+	/*height:320px;*/
+    overflow:hidden;
+}
+.step2{
+    float:left;
+    width:600px;
+	/*height:320px;*/
+}
+
+#steps2 form fieldset{
+    border:none;
+    padding-bottom:20px;
+}
+#steps2 form legend{
+    text-align:left;
+    background-color:#f0f0f0;
+    color:#666;
+    font-size:12px;
+    text-shadow:1px 1px 1px #fff;
+    font-weight:bold;
+    float:left;
+    width:590px;
+    padding:5px 0px 5px 10px;
+    margin:10px 0px 10px -10px;
+    border-bottom:1px solid #fff;
+    border-top:1px solid #d9d9d9;
+}
+#steps2 form p{
+    float:left;
+    clear:both;
+    margin:5px 0px;
+    background-color:#f4f4f4;
+    border:1px solid #fff;
+    width:400px;
+    padding:5px;
+    margin-left:30px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+}
+#steps2 form p label{
+    width:160px;
+    float:left;
+    text-align:right;
+    margin-right:15px;
+    line-height:26px;
+    color:#666;
+    text-shadow:1px 1px 1px #fff;
+    font-weight:bold;
+}
+#steps2 form input:not([type=radio]),
+#steps2 form textarea,
+#steps2 form select{
+    background: #ffffff;
+    border: 1px solid #ddd;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    width: 200px;
+    float:left;
+}
+#steps2 form input:focus{
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+    background-color:#FFFEEF;
+}
+#steps2 form p.submit{
+    background:none;
+    border:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+#steps2 form button {
+	border:none;
+	outline:none;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    color: #ffffff;
+    display: block;
+    cursor:pointer;
+    margin: -43px 45px 0px 0px;
+    clear:both;
+    padding: 7px 25px;
+    text-shadow: 0 1px 1px #777;
+    font-weight:bold;
+    font-family:"Century Gothic", Helvetica, sans-serif;
+    font-size:14px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+    background:#4797ED;
+    float:right;
+}
+#steps2 form button:hover {
+    background:#d8d8d8;
+    color:#666;
+    text-shadow:1px 1px 1px #fff;
+}
+
+.fechaActividadInicio{
+	border:none;
+	outline:none;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    display: block;
+    cursor:pointer;
+    clear:both;
+    padding: 1px 25px;
+    text-shadow: 0 1px 1px #777;
+    font-weight:bold;
+    font-family:"Century Gothic", Helvetica, sans-serif;
+    font-size:14px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+    background:#4797ED;
+    float:right;
+}
+.fechaActividadFin{
+	border:none;
+	outline:none;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    display: block;
+    cursor:pointer;
+    clear:both;
+    padding: 1px 25px;
+    text-shadow: 0 1px 1px #777;
+    font-weight:bold;
+    font-family:"Century Gothic", Helvetica, sans-serif;
+    font-size:14px;
+    -moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;
+    background:#C7075A;
+    float:right;
+}
+.barraTitulo 
+{
+    background: #efefef;
+    margin-bottom:15px;
+    padding: 7px 0 9px 0; 
+    line-height: 1.15;
+    width:100%;
+    /* Border radii */
+    border-radius:         4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius:    4px;
+    -khtml-border-radius:  4px;
 }

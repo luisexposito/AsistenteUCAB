@@ -34,7 +34,7 @@ namespace AsistenteUCAB.Repositorios
         /// </summary>
         /// <param name="id">parametro utilizado para la buscqueda</param>
         /// <returns>Retorna el objeto que tenga el id especificado</returns>
-        T GetById(int id);
+        T GetById(int? id);
 
         /// <summary>
         /// Obtiene el objeto del repositorio segun una clave unica

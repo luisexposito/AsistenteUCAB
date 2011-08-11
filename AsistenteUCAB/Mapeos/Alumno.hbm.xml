@@ -7,7 +7,8 @@
     <property name="Cedula" column="`cedula`" length="10" />
     <property name="Username" column="`username`" length="25" />
     <property name="Nombre" column="`nombre`" length="20" />
-		<property name="Apellido" column="`apellido`" length="20" />		
+		<property name="Apellido" column="`apellido`" length="20" />
+    <property name="Sexo" column="`sexo`" length="1" />
     <property name="CorreoUcab" column="`correoUcab`" length="50" />
 		<property name="CorreoAlternativo" column="`correoAlternativo`" length="50" />
     <property name="IdDireccion" column="`idDireccion`" />

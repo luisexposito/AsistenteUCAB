@@ -2,7 +2,7 @@
 <hibernate-mapping namespace="AsistenteUCAB.Modelos" assembly="AsistenteUCAB" xmlns="urn:nhibernate-mapping-2.2">
 	<class name="Direccion" lazy="true" table="`DIRECCION`" schema="`dbo`">
 		<id name="IdDireccion" access="property" column="`idDireccion`">
-			<generator class="assigned" />
+			<generator class="native" />
 		</id>
     <property name="Ciudad" column="`ciudad`" length="20" />
     <property name="Municipio" column="`municipio`" length="20" />
